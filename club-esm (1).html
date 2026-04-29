@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Club ESM — En Sus Marcas</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; }
+
+    /* NAV */
+    .nav {
+      background: #0072CE;
+      padding: 0 32px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-logo img { height: 36px; display: block; }
+    .nav-link { font-size: 13px; color: rgba(255,255,255,0.7); text-decoration: none; }
+    .nav-link:hover { color: #fff; }
+
+    /* HERO */
+    .hero {
+      background: #0072CE;
+      padding: 64px 24px 72px;
+      text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: #47D7AC;
+      color: #04342C;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 5px 16px;
+      border-radius: 20px;
+      margin-bottom: 24px;
+    }
+    .hero h1 {
+      font-size: 36px;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .hero h1 span { color: #FFD100; }
+    .hero p {
+      font-size: 16px;
+      color: rgba(255,255,255,0.75);
+      max-width: 460px;
+      margin: 0 auto 36px;
+      line-height: 1.7;
+    }
+    .hero-counter {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      border-radius: 14px;
+      padding: 16px 28px;
+      color: #fff;
+    }
+    .counter-block { text-align: center; }
+    .counter-num { font-size: 28px; font-weight: 700; color: #FFD100; }
+    .counter-label { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+    .divider-v { width: 1px; height: 44px; background: rgba(255,255,255,0.2); }
+    .counter-msg { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.6; text-align: left; }
+    .counter-msg strong { color: #FFD100; font-size: 16px; }
+
+    /* SECTIONS */
+    .section { padding: 56px 24px; max-width: 800px; margin: 0 auto; }
+    .section-title { font-size: 24px; font-weight: 700; color: #1a1a1a; text-align: center; margin-bottom: 8px; }
+    .section-sub { font-size: 15px; color: #666; text-align: center; margin-bottom: 36px; }
+
+    /* PLANES */
+    .plans-wrap { max-width: 800px; margin: 0 auto; padding: 56px 24px; }
+    .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 560px) { .plans-grid { grid-template-columns: 1fr; } }
+    .plan-card {
+      background: #fff;
+      border: 1px solid #e0e0e0;
+      border-radius: 16px;
+      padding: 28px 24px;
+      position: relative;
+    }
+    .plan-card.featured { border: 2.5px solid #0072CE; }
+    .plan-badge {
+      position: absolute;
+      top: -13px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #0072CE;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 16px;
+      border-radius: 20px;
+      white-space: nowrap;
+    }
+    .plan-name { font-size: 15px; font-weight: 600; color: #333; margin-bottom: 6px; }
+    .plan-price { font-size: 28px; font-weight: 700; color: #0072CE; margin-bottom: 4px; }
+    .plan-freq { font-size: 12px; color: #999; margin-bottom: 20px; }
+    .plan-perks { list-style: none; margin-bottom: 24px; }
+    .plan-perks li {
+      font-size: 13px;
+      color: #555;
+      padding: 5px 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      line-height: 1.5;
+    }
+    .perk-dot { width: 7px; height: 7px; border-radius: 50%; background: #47D7AC; flex-shrink: 0; margin-top: 5px; }
+    .perk-dot.gold { background: #FFD100; border: 1px solid #e0b800; }
+    .btn-plan {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      border: none;
+      transition: opacity 0.15s;
+      text-decoration: none;
+    }
+    .btn-plan:hover { opacity: 0.88; }
+    .btn-primary { background: #0072CE; color: #fff; }
+    .btn-outline { background: transparent; border: 1.5px solid #0072CE; color: #0072CE; }
+
+    /* FUNDADORES */
+    .founder-section {
+      background: #0A1929;
+      padding: 56px 24px;
+      text-align: center;
+    }
+    .founder-inner { max-width: 600px; margin: 0 auto; }
+    .founder-section h2 { font-size: 24px; font-weight: 700; color: #FFD100; margin-bottom: 12px; }
+    .founder-section p { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 440px; margin: 0 auto 32px; line-height: 1.7; }
+    .founder-tiers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 440px) { .founder-tiers { grid-template-columns: 1fr; } }
+    .tier-card { border-radius: 14px; padding: 20px; text-align: left; }
+    .tier-early { background: rgba(255,209,0,0.1); border: 1px solid rgba(255,209,0,0.3); }
+    .tier-regular { background: rgba(105,179,231,0.1); border: 1px solid rgba(105,179,231,0.25); }
+    .tier-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
+    .tier-early .tier-label { color: #FFD100; }
+    .tier-regular .tier-label { color: #69B3E7; }
+    .tier-range { font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+    .tier-price { font-size: 15px; font-weight: 600; }
+    .tier-early .tier-price { color: rgba(255,209,0,0.85); }
+    .tier-regular .tier-price { color: rgba(105,179,231,0.85); }
+    .tier-detail { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 6px; }
+
+    /* BENEFICIOS */
+    .benefits-wrap { background: #f0f4f8; padding: 56px 24px; }
+    .benefits-inner { max-width: 700px; margin: 0 auto; }
+    .benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    @media (max-width: 500px) { .benefits-grid { grid-template-columns: 1fr; } }
+    .benefit-card {
+      background: #fff;
+      border-radius: 14px;
+      padding: 20px;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      border: 1px solid #e8e8e8;
+    }
+    .benefit-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+    .benefit-name { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+    .benefit-desc { font-size: 12px; color: #777; line-height: 1.6; }
+
+    /* PASOS */
+    .steps-wrap { max-width: 540px; margin: 0 auto; }
+    .step { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 28px; }
+    .step-num {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #0072CE;
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-title { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
+    .step-desc { font-size: 13px; color: #666; line-height: 1.6; }
+
+    /* CTA FOOTER */
+    .cta-footer { background: #0072CE; padding: 64px 24px; text-align: center; }
+    .cta-footer h2 { font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 12px; }
+    .cta-footer p { font-size: 15px; color: rgba(255,255,255,0.75); margin-bottom: 28px; }
+    .btn-cta {
+      display: inline-block;
+      background: #FFD100;
+      color: #0A1929;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 36px;
+      border-radius: 10px;
+      cursor: pointer;
+      border: none;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+    .btn-cta:hover { opacity: 0.9; }
+
+    .footer { background: #0A1929; padding: 24px; text-align: center; }
+    .footer p { font-size: 12px; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
+    .footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
+    .footer-dev { font-size: 11px; color: rgba(255,255,255,0.2); margin-top: 8px; }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <span class="nav-logo"><img src="esm-logo.png" alt="ESM — En Sus Marcas"></span>
+  <a href="https://ensusmarcas.com.py" class="nav-link">← Volver a ensusmarcas.com.py</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">Lanzamiento exclusivo</div>
+  <h1>Corré más lejos<br>con el <span>Club ESM</span></h1>
+  <p>Descuentos en marcas deportivas, acceso preferencial a carreras ESM y una comunidad que corre con vos.</p>
+  <div class="hero-counter">
+    <div class="counter-block">
+      <div class="counter-num" id="contador">87</div>
+      <div class="counter-label">socios fundadores</div>
+    </div>
+    <div class="divider-v"></div>
+    <div class="counter-msg">
+      Solo quedan<br>
+      <strong id="cupos">13</strong> cupos de fundador
+    </div>
+  </div>
+</section>
+
+<!-- PLANES -->
+<div class="plans-wrap">
+  <p class="section-title" style="text-align:center;margin-bottom:8px;">Elegí tu plan</p>
+  <p class="section-sub">Cancelá cuando quieras. Sin compromisos.</p>
+  <div class="plans-grid">
+
+    <div class="plan-card">
+      <div class="plan-name">Mensual</div>
+      <div class="plan-price">₲ 50.000</div>
+      <div class="plan-freq">por mes · renovación automática</div>
+      <ul class="plan-perks">
+        <li><span class="perk-dot"></span>Acceso a descuentos en marcas deportivas aliadas</li>
+        <li><span class="perk-dot"></span>Descuentos en carreras organizadas por ESM</li>
+        <li><span class="perk-dot"></span>Acceso al grupo exclusivo de WhatsApp</li>
+        <li><span class="perk-dot"></span>Encuentros y capacitaciones del club</li>
+      </ul>
+      <!-- Reemplazá el href con tu link de Tpago mensual -->
+      <a href="TU_LINK_TPAGO_MENSUAL" class="btn-plan btn-outline">Unirme mensual</a>
+    </div>
+
+    <div class="plan-card featured">
+      <div class="plan-badge">Cupos limitados</div>
+      <div class="plan-name">Anual · Fundador</div>
+      <div class="plan-price" style="font-size:24px;">₲ 700.000</div>
+      <div class="plan-freq">socios 1–30 · Early Bird · Nº bordado</div>
+      <ul class="plan-perks">
+        <li><span class="perk-dot gold"></span>Todo lo incluido en el plan mensual</li>
+        <li><span class="perk-dot gold"></span>Número de fundador bordado (01–30)</li>
+        <li><span class="perk-dot gold"></span>Insignia digital de socio fundador</li>
+        <li><span class="perk-dot gold"></span>Acceso prioritario a eventos ESM</li>
+      </ul>
+      <!-- Reemplazá el href con tu link de Tpago anual Early Bird -->
+      <a href="TU_LINK_TPAGO_ANUAL_EARLYBIRD" class="btn-plan btn-primary">Ser fundador Early Bird</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- FUNDADORES -->
+<section class="founder-section">
+  <div class="founder-inner">
+    <h2>Los primeros 100 son fundadores</h2>
+    <p>Dos niveles exclusivos para quienes entran primero. Tu número de socio queda bordado para siempre en tu kit ESM.</p>
+    <div class="founder-tiers">
+      <div class="tier-card tier-early">
+        <div class="tier-label">Early Bird</div>
+        <div class="tier-range">01 – 30</div>
+        <div class="tier-price">₲ 700.000</div>
+        <div class="tier-detail">Número bordado 01–30</div>
+      </div>
+      <div class="tier-card tier-regular">
+        <div class="tier-label">Regular</div>
+        <div class="tier-range">31 – 100</div>
+        <div class="tier-price">₲ 900.000</div>
+        <div class="tier-detail">Número bordado 31–100</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section class="benefits-wrap">
+  <div class="benefits-inner">
+    <p class="section-title">Beneficios del club</p>
+    <p class="section-sub">Todo lo que obtenés siendo socio ESM</p>
+    <div class="benefits-grid">
+      <div class="benefit-card">
+        <div class="benefit-icon" style="background:#E6F1FB;">🏷️</div>
+        <div>
+          <div class="benefit-name">Descuentos en marcas</div>
+          <div class="benefit-desc">Acceso directo a precios exclusivos en tiendas deportivas aliadas a ESM.</div>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon" style="background:#E1F5EE;">🏁</div>
+        <div>
+          <div class="benefit-name">Carreras con descuento</div>
+          <div class="benefit-desc">Precios especiales en todas las carreras organizadas por En Sus Marcas.</div>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon" style="background:#FFF9E0;">⭐</div>
+        <div>
+          <div class="benefit-name">Número de fundador</div>
+          <div class="benefit-desc">Identificación exclusiva bordada para los primeros 100 socios del club.</div>
+        </div>
+      </div>
+      <div class="benefit-card">
+        <div class="benefit-icon" style="background:#FFF0F0;">🤝</div>
+        <div>
+          <div class="benefit-name">Comunidad ESM</div>
+          <div class="benefit-desc">Grupo privado de WhatsApp, encuentros, capacitaciones y mucho más.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PASOS -->
+<section class="section">
+  <p class="section-title">¿Cómo me uno?</p>
+  <p class="section-sub">Simple y rápido, en 3 pasos</p>
+  <div class="steps-wrap">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <div class="step-title">Elegí tu plan</div>
+        <div class="step-desc">Mensual o anual fundador. Si querés el número bordado, asegurate antes de que se agoten los 100 cupos disponibles.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <div class="step-title">Pagá con Tpago</div>
+        <div class="step-desc">Proceso de pago rápido y seguro con Tpago. Recibirás la confirmación de tu pago de inmediato.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <div class="step-title">Bienvenido al club</div>
+        <div class="step-desc">Te llega la confirmación por WhatsApp o email con el link de acceso al grupo exclusivo y tus beneficios activados.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-footer">
+  <h2>¿Listo para correr con nosotros?</h2>
+  <p>Quedan pocos cupos de fundador. No te lo pierdas.</p>
+  <a href="TU_LINK_TPAGO_ANUAL_EARLYBIRD" class="btn-cta">Quiero ser socio fundador</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>Club ESM · <a href="https://ensusmarcas.com.py">ensusmarcas.com.py</a> · Paraguay</p>
+  <p class="footer-dev">Desarrollado por A²</p>
+</footer>
+
+</body>
+</html>
