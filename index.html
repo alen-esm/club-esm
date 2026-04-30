@@ -234,6 +234,10 @@
 <!-- AGREGAMOS UN FORMULARIO INTERMEDIO -->
 <div id="registrationModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; align-items:center; justify-content:center;">
   <div style="background:white; padding:30px; border-radius:15px; max-width:400px; width:90%; position:relative;">
+    <button onclick="document.getElementById('registrationModal').style.display='none'" 
+            style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:22px; cursor:pointer; color:#999;">
+      &times;
+    </button>
     <h3 style="margin-bottom:15px;">¡Casi eres socio!</h3>
     <p style="font-size:14px; color:#666; margin-bottom:20px;">Completa tus datos para proceder al pago seguro.</p>
     
@@ -264,13 +268,13 @@
   <p>Descuentos en marcas deportivas, acceso preferencial a carreras ESM y una comunidad que corre con vos.</p>
   <div class="hero-counter">
     <div class="counter-block">
-      <div class="counter-num" id="contador">87</div>
+      <div class="counter-num" id="contador">-</div>
       <div class="counter-label">socios fundadores</div>
     </div>
     <div class="divider-v"></div>
     <div class="counter-msg">
       Solo quedan<br>
-      <strong id="cupos">13</strong> cupos de fundador
+      <strong id="cupos">-</strong> cupos de fundador
     </div>
   </div>
 </section>
