@@ -424,22 +424,26 @@
 
   // 2. FUNCIÓN ASÍNCRONA PARA ACTUALIZAR CUPOS EN TIEMPO REAL
   async function actualizarCupos() {
-      try {
-          const respuesta = await fetch(CSV_URL);
-          const texto = await respuesta.text();
-          
-          // Procesar las filas del CSV
-          const filas = texto.split("\n").filter(line => line.trim() !== "");
-          const totalSocios = filas.length - 1; // Restamos la cabecera
-          const cuposRestantes = 100 - totalSocios;
+    try {
+        const respuesta = await fetch(CSV_URL);
+        const texto = await respuesta.text();
+        
+        // Limpiamos espacios y filtramos líneas vacías
+        const filas = texto.trim().split("\n").filter(line => line.trim() !== "");
+        
+        // Si solo hay una fila (cabecera), el total de socios es 0
+        const totalSocios = filas.length > 1 ? filas.length - 1 : 0; 
+        const cuposRestantes = 100 - totalSocios;
 
-          // Inyectar los datos en los IDs que ya existen en tu HTML
-          document.getElementById('contador').innerText = totalSocios;
-          document.getElementById('cupos').innerText = cuposRestantes > 0 ? cuposRestantes : 0;
-      } catch (error) {
-          console.error("Error cargando cupos:", error);
-      }
-  }
+        document.getElementById('contador').innerText = totalSocios;
+        document.getElementById('cupos').innerText = cuposRestantes > 0 ? cuposRestantes : 0;
+    } catch (error) {
+        console.error("Error cargando cupos:", error);
+        // En caso de error, podrías poner valores por defecto para no asustar al usuario
+        document.getElementById('contador').innerText = "0";
+        document.getElementById('cupos').innerText = "100";
+    }
+}
 
   // 3. LOGICA DEL FORMULARIO (ENVÍO A MAKE + REDIRECCIÓN)
   document.getElementById('formSocio').addEventListener('submit', async (e) => {
