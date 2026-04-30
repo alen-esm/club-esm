@@ -231,6 +231,25 @@
   </style>
 </head>
 <body>
+<!-- AGREGAMOS UN FORMULARIO INTERMEDIO -->
+<div id="registrationModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; align-items:center; justify-content:center;">
+  <div style="background:white; padding:30px; border-radius:15px; max-width:400px; width:90%; position:relative;">
+    <h3 style="margin-bottom:15px;">¡Casi eres socio!</h3>
+    <p style="font-size:14px; color:#666; margin-bottom:20px;">Completa tus datos para proceder al pago seguro.</p>
+    
+    <form id="formSocio">
+      <input type="hidden" id="selectedPlan" name="plan">
+      <input type="text" id="userName" placeholder="Nombre y Apellido" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;">
+      <input type="tel" id="userPhone" placeholder="WhatsApp (ej: 0981123456)" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;">
+      <input type="email" id="userEmail" placeholder="Tu Email" required style="width:100%; padding:12px; margin-bottom:20px; border:1px solid #ddd; border-radius:8px;">
+      
+      <button type="submit" id="btnSubmit" style="width:100%; background:#0072CE; color:white; border:none; padding:15px; border-radius:10px; font-weight:700; cursor:pointer;">
+        Ir a pagar con Tpago
+      </button>
+    </form>
+  </div>
+</div>
+  
 
 <!-- NAV -->
 <nav class="nav">
@@ -382,6 +401,72 @@
     </div>
   </div>
 </section>
+
+<!-- fUNCION PERSONALIZADA -->
+  <script>
+const WEBHOOK_URL = "https://hook.us2.make.com/xnykj4clsa2cy96ogrsbkfun3sytz6b9";
+const LINKS_TPAGO = {
+    "Mensual": "https://www.tpago.com.py/links?alias=PBXKD61537&commerce_branch_name=EN SUS MARCAS&reference_id=1002",
+    "Anual": "https://www.tpago.com.py/links?alias=PFAXC92576&commerce_branch_name=EN SUS MARCAS&reference_id=1001"
+};
+
+// 1. Abrir modal y marcar plan
+function abrirRegistro(plan) {
+    document.getElementById('selectedPlan').value = plan;
+    document.getElementById('registrationModal').style.display = 'flex';
+}
+
+// Sustituir los botones en tu HTML original por:
+// <button onclick="abrirRegistro('Mensual')" class="btn-plan btn-outline">Unirme mensual</button>
+// <button onclick="abrirRegistro('Anual')" class="btn-plan btn-primary">Ser fundador Early Bird</button>
+
+// 2. Enviar datos a Make y Redirigir
+document.getElementById('formSocio').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('btnSubmit');
+    btn.innerText = "Procesando...";
+    btn.disabled = true;
+
+    const datos = {
+        nombre: document.getElementById('userName').value,
+        whatsapp: document.getElementById('userPhone').value,
+        email: document.getElementById('userEmail').value,
+        plan: document.getElementById('selectedPlan').value
+    };
+
+    try {
+        await fetch(WEBHOOK_URL, {
+            method: 'POST',
+            body: JSON.stringify(datos),
+            headers: { 'Content-Type': 'application/json' }
+        });
+        
+        // Redirigir a Tpago después de enviar a Make
+        window.location.href = LINKS_TPAGO[datos.plan];
+    } catch (error) {
+        alert("Hubo un error, intenta de nuevo.");
+        btn.disabled = false;
+        btn.innerText = "Ir a pagar con Tpago";
+    }
+});
+</script>
+<!-- CONTADOR DE CUPOS -->
+  async function actualizarCupos() {
+    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR6h-u_HC1jQLdkJGrePYuZWz-457uSve9Y9yNyY1ag3gi3rsvDPXCfJyK4DrQ_P5AuFFKHXYwg2rb5/pub?output=csv";
+    const respuesta = await fetch(CSV_URL);
+    const texto = await respuesta.text();
+    
+    // Contamos las filas del CSV (menos la cabecera)
+    const filas = texto.split("\n").filter(line => line.trim() !== "");
+    const totalSocios = filas.length - 1; 
+    const cuposRestantes = 100 - totalSocios;
+
+    // Actualizamos el HTML
+    document.getElementById('contador').innerText = totalSocios;
+    document.getElementById('cupos').innerText = cuposRestantes > 0 ? cuposRestantes : 0;
+}
+actualizarCupos();
+
 
 <!-- CTA -->
 <section class="cta-footer">
