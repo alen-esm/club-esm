@@ -263,6 +263,9 @@
 
 <!-- HERO -->
 <section class="hero">
+  <div class="progress-container" style="width: 100%; max-width: 400px; background: rgba(255,255,255,0.2); height: 10px; border-radius: 5px; margin: 20px auto; overflow: hidden;">
+    <div id="barraProgreso" style="width: 0%; height: 100%; background: #47D7AC; transition: width 1s ease-in-out;"></div>
+  </div>
   <div class="hero-badge">Lanzamiento exclusivo</div>
   <h1>Corré más lejos<br>con el <span>Club ESM</span></h1>
   <p>Descuentos en marcas deportivas, acceso preferencial a carreras ESM y una comunidad que corre con vos.</p>
@@ -427,21 +430,28 @@
     try {
         const respuesta = await fetch(CSV_URL);
         const texto = await respuesta.text();
+        const filas = texto.trim().split("\n").map(f => f.split(",")); 
         
-        // Limpiamos espacios y filtramos líneas vacías
-        const filas = texto.trim().split("\n").filter(line => line.trim() !== "");
-        
-        // Si solo hay una fila (cabecera), el total de socios es 0
-        const totalSocios = filas.length > 1 ? filas.length - 1 : 0; 
-        const cuposRestantes = 100 - totalSocios;
+        // Buscamos el índice de la columna "Estado" (asumiendo que es la G, índice 6)
+        // Y filtramos solo las filas que tengan "Confirmado" o "Completado"
+        const sociosPagados = filas.filter(col => {
+            const estado = col[6] ? col[6].trim() : ""; 
+            return estado === "Confirmado" || estado === "Completado";
+        }).length;
 
-        document.getElementById('contador').innerText = totalSocios;
+        const cuposRestantes = 100 - sociosPagados;
+
+        // Actualizar HTML
+        document.getElementById('contador').innerText = sociosPagados;
         document.getElementById('cupos').innerText = cuposRestantes > 0 ? cuposRestantes : 0;
+        document.getElementById('barraProgreso').style.width = sociosPagados + '%';
+
+        // Si llegamos a 100, cambiar mensaje
+        if (cuposRestantes <= 0) {
+            document.querySelector('.counter-msg').innerHTML = "¡Cupos de fundador<br><strong>AGOTADOS</strong>!";
+        }
     } catch (error) {
-        console.error("Error cargando cupos:", error);
-        // En caso de error, podrías poner valores por defecto para no asustar al usuario
-        document.getElementById('contador').innerText = "0";
-        document.getElementById('cupos').innerText = "100";
+        console.error("Error:", error);
     }
 }
 
