@@ -292,7 +292,7 @@
         <li><span class="perk-dot"></span>Encuentros y capacitaciones del club</li>
       </ul>
       <!-- Reemplazá el href con tu link de Tpago mensual -->
-      <a href="https://www.tpago.com.py/links?alias=PBXKD61537&commerce_branch_name=EN SUS MARCAS&reference_id=1002" class="btn-plan btn-outline">Unirme mensual</a>
+      <button onclick="abrirRegistro('Mensual')" class="btn-plan btn-outline">Unirme mensual</button>
     </div>
 
     <div class="plan-card featured">
@@ -307,7 +307,7 @@
         <li><span class="perk-dot gold"></span>Acceso prioritario a eventos ESM</li>
       </ul>
       <!-- Reemplazá el href con tu link de Tpago anual Early Bird -->
-      <a href="https://www.tpago.com.py/links?alias=PFAXC92576&commerce_branch_name=EN SUS MARCAS&reference_id=1001" class="btn-plan btn-primary">Ser fundador Early Bird</a>
+      <button onclick="abrirRegistro('Anual')" class="btn-plan btn-outline">Unirme anual</button>
     </div>
 
   </div>
@@ -403,76 +403,85 @@
 </section>
 
 <!-- fUNCION PERSONALIZADA -->
-  <script>
-const WEBHOOK_URL = "https://hook.us2.make.com/xnykj4clsa2cy96ogrsbkfun3sytz6b9";
-const LINKS_TPAGO = {
-    "Mensual": "https://www.tpago.com.py/links?alias=PBXKD61537&commerce_branch_name=EN SUS MARCAS&reference_id=1002",
-    "Anual": "https://www.tpago.com.py/links?alias=PFAXC92576&commerce_branch_name=EN SUS MARCAS&reference_id=1001"
-};
+<script>
+  // CONFIGURACIÓN INICIAL
+  const WEBHOOK_URL = "https://hook.us2.make.com/xnykj4clsa2cy96ogrsbkfun3sytz6b9"; 
+  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR6h-u_HC1jQLdkJGrePYuZWz-457uSve9Y9yNyY1ag3gi3rsvDPXCfJyK4DrQ_P5AuFFKHXYwg2rb5/pub?output=csv";
+  const LINKS_TPAGO = {
+      "Mensual": "https://www.tpago.com.py/links?alias=PBXKD61537&commerce_branch_name=EN SUS MARCAS&reference_id=1002",
+      "Anual": "https://www.tpago.com.py/links?alias=PFAXC92576&commerce_branch_name=EN SUS MARCAS&reference_id=1001"
+  };
 
-// 1. Abrir modal y marcar plan
-function abrirRegistro(plan) {
-    document.getElementById('selectedPlan').value = plan;
-    document.getElementById('registrationModal').style.display = 'flex';
-}
+  // 1. FUNCIÓN PARA ABRIR EL MODAL
+  function abrirRegistro(plan) {
+      document.getElementById('selectedPlan').value = plan;
+      document.getElementById('registrationModal').style.display = 'flex';
+  }
 
-// Sustituir los botones en tu HTML original por:
-// <button onclick="abrirRegistro('Mensual')" class="btn-plan btn-outline">Unirme mensual</button>
-// <button onclick="abrirRegistro('Anual')" class="btn-plan btn-primary">Ser fundador Early Bird</button>
-
-// 2. Enviar datos a Make y Redirigir
-document.getElementById('formSocio').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const btn = document.getElementById('btnSubmit');
-    btn.innerText = "Procesando...";
-    btn.disabled = true;
-
-    const datos = {
-        nombre: document.getElementById('userName').value,
-        whatsapp: document.getElementById('userPhone').value,
-        email: document.getElementById('userEmail').value,
-        plan: document.getElementById('selectedPlan').value
-    };
-
-    try {
-        await fetch(WEBHOOK_URL, {
-            method: 'POST',
-            body: JSON.stringify(datos),
-            headers: { 'Content-Type': 'application/json' }
-        });
-        
-        // Redirigir a Tpago después de enviar a Make
-        window.location.href = LINKS_TPAGO[datos.plan];
-    } catch (error) {
-        alert("Hubo un error, intenta de nuevo.");
-        btn.disabled = false;
-        btn.innerText = "Ir a pagar con Tpago";
-    }
-});
-</script>
-<!-- CONTADOR DE CUPOS -->
+  // 2. FUNCIÓN ASÍNCRONA PARA ACTUALIZAR CUPOS EN TIEMPO REAL
   async function actualizarCupos() {
-    const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR6h-u_HC1jQLdkJGrePYuZWz-457uSve9Y9yNyY1ag3gi3rsvDPXCfJyK4DrQ_P5AuFFKHXYwg2rb5/pub?output=csv";
-    const respuesta = await fetch(CSV_URL);
-    const texto = await respuesta.text();
-    
-    // Contamos las filas del CSV (menos la cabecera)
-    const filas = texto.split("\n").filter(line => line.trim() !== "");
-    const totalSocios = filas.length - 1; 
-    const cuposRestantes = 100 - totalSocios;
+      try {
+          const respuesta = await fetch(CSV_URL);
+          const texto = await respuesta.text();
+          
+          // Procesar las filas del CSV
+          const filas = texto.split("\n").filter(line => line.trim() !== "");
+          const totalSocios = filas.length - 1; // Restamos la cabecera
+          const cuposRestantes = 100 - totalSocios;
 
-    // Actualizamos el HTML
-    document.getElementById('contador').innerText = totalSocios;
-    document.getElementById('cupos').innerText = cuposRestantes > 0 ? cuposRestantes : 0;
-}
-actualizarCupos();
+          // Inyectar los datos en los IDs que ya existen en tu HTML
+          document.getElementById('contador').innerText = totalSocios;
+          document.getElementById('cupos').innerText = cuposRestantes > 0 ? cuposRestantes : 0;
+      } catch (error) {
+          console.error("Error cargando cupos:", error);
+      }
+  }
 
+  // 3. LOGICA DEL FORMULARIO (ENVÍO A MAKE + REDIRECCIÓN)
+  document.getElementById('formSocio').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const btn = document.getElementById('btnSubmit');
+      
+      // Feedback visual
+      btn.innerText = "Procesando...";
+      btn.disabled = true;
+
+      const datos = {
+          nombre: document.getElementById('userName').value,
+          whatsapp: document.getElementById('userPhone').value,
+          email: document.getElementById('userEmail').value,
+          plan: document.getElementById('selectedPlan').value,
+          fecha: new Date().toISOString()
+      };
+
+      try {
+          // Enviar a Make
+          await fetch(WEBHOOK_URL, {
+              method: 'POST',
+              mode: 'no-cors', // Importante para evitar bloqueos de CORS en algunos navegadores
+              body: JSON.stringify(datos),
+              headers: { 'Content-Type': 'application/json' }
+          });
+          
+          // Redirigir a la pasarela de Tpago
+          window.location.href = LINKS_TPAGO[datos.plan];
+      } catch (error) {
+          console.error("Error al registrar:", error);
+          alert("Hubo un problema al conectar. Por favor, intenta de nuevo.");
+          btn.disabled = false;
+          btn.innerText = "Ir a pagar con Tpago";
+      }
+  });
+
+  // Ejecutar actualización de cupos al cargar la página
+  actualizarCupos();
+</script>
 
 <!-- CTA -->
 <section class="cta-footer">
   <h2>¿Listo para correr con nosotros?</h2>
   <p>Quedan pocos cupos de fundador. No te lo pierdas.</p>
-  <a href="https://www.tpago.com.py/links?alias=PFAXC92576&commerce_branch_name=EN SUS MARCAS&reference_id=1001" class="btn-cta">Quiero ser socio fundador</a>
+  <button onclick="abrirRegistro('Anual')" class="btn-plan btn-outline">Quiero ser socio fundador</button>
 </section>
 
 <!-- FOOTER -->
