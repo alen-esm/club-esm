@@ -243,6 +243,7 @@
     
     <form id="formSocio">
       <input type="hidden" id="selectedPlan" name="plan">
+      <input type="number" id="cedulaPersona" placeholder="Ej: 1234567" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;">
       <input type="text" id="userName" placeholder="Nombre y Apellido" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;">
       <input type="tel" id="userPhone" placeholder="WhatsApp (ej: 0981123456)" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;">
       <input type="email" id="userEmail" placeholder="Tu Email" required style="width:100%; padding:12px; margin-bottom:20px; border:1px solid #ddd; border-radius:8px;">
@@ -465,6 +466,7 @@
       btn.disabled = true;
 
       const datos = {
+          cedula: document.getElementById('cedulaPersona').value,
           nombre: document.getElementById('userName').value,
           whatsapp: document.getElementById('userPhone').value,
           email: document.getElementById('userEmail').value,
