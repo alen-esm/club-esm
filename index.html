@@ -493,8 +493,8 @@
       }
   });
 
-  // Ejecutar actualización de cupos al cargar la página
-  actualizarCupos();
+  // Actualiza los cupos automáticamente cada 30 segundos
+  setInterval(actualizarCupos, 30000);
 </script>
 
 <!-- CTA -->
@@ -503,6 +503,8 @@
   <p>Quedan pocos cupos de fundador. No te lo pierdas.</p>
   <button onclick="abrirRegistro('Anual')" class="btn-cta btn-outline">Quiero ser socio fundador</button>
 </section>
+
+  
 
 <!-- FOOTER -->
 <footer class="footer">
