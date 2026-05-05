@@ -491,10 +491,11 @@
           btn.disabled = false;
           btn.innerText = "Ir a pagar con Tpago";
       }
+      // Actualiza los cupos automáticamente cada 30 segundos
+      setInterval(actualizarCupos, 30000);
   });
 
-  // Actualiza los cupos automáticamente cada 30 segundos
-  setInterval(actualizarCupos, 30000);
+
 </script>
 
 <!-- CTA -->
