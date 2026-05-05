@@ -436,7 +436,7 @@
         // Buscamos el índice de la columna "Estado" (asumiendo que es la G, índice 6)
         // Y filtramos solo las filas que tengan "Confirmado" o "Completado"
         const sociosPagados = filas.filter(col => {
-            const estado = col[6] ? col[6].trim() : ""; 
+            const estado = col[6] ? col[7].trim() : ""; 
             return estado === "Confirmado" || estado === "Completado";
         }).length;
 
