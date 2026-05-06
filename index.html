@@ -456,6 +456,15 @@ async function actualizarCupos() {
     } catch(e) { 
         console.error("Error al leer el CSV:", e); 
     }
+    // Si se agotaron los cupos, cambiamos el estilo del botón
+    if (sociosFundadoresConfirmados >= 100) {
+        const btnFundador = document.querySelectorAll("button[onclick*='fundador']");
+        btnFundador.forEach(btn => {
+            btn.innerText = "CUPOS AGOTADOS";
+            btn.style.backgroundColor = "#888"; // Gris
+            btn.style.cursor = "not-allowed";
+        });
+    }
 }
 
 const plans = {
@@ -465,6 +474,12 @@ const plans = {
 };
 
 function openModal(p) {
+    // REGLA DE CIERRE: Si ya hay 100 confirmados y alguien intenta ser fundador...
+    if (p === 'fundador' && sociosFundadoresConfirmados >= 100) {
+        alert("¡Lo sentimos! Los 100 cupos de Socio Fundador se han agotado. Ahora podés unirte como Socio Anual o Mensual.");
+        return; // Bloquea la apertura del modal de fundador
+    }
+    
     const d = plans[p];
     let proximoDorsal;
 
