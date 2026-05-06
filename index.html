@@ -436,7 +436,7 @@ async function actualizarCupos() {
         // 2. ACTUALIZACIÓN DE TU HTML:
         
         // "Socios actuales" = Todos los que pagaron (Fundadores + Normales)
-        document.getElementById('contador').innerText = fundadoresConfirmados + normalesConfirmados;
+        document.getElementById('contador').innerText = "+" fundadoresConfirmados + normalesConfirmados;
 
         // "Cupos Fundador" = Los 100 iniciales menos los que ya pagaron
         const cuposRestantes = 100 - fundadoresConfirmados;
