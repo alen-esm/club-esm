@@ -1,518 +1,556 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Club ESM — En Sus Marcas</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: #f5f5f5; color: #1a1a1a; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Club ESM — En Sus Marcas</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --azul: #1a6fc4; --azul-oscuro: #1558a0; --azul-claro: #e8f1fb;
+            --amarillo: #F5C800; --amarillo-bg: #fffbea;
+            --negro: #111111; --gris-oscuro: #444444; --gris-medio: #888888;
+            --gris-claro: #f2f4f6; --gris-borde: #e0e4ea; --blanco: #ffffff;
+            --verde: #1a7a1a; --verde-bg: #d4f0d4;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { background: var(--blanco); color: var(--negro); font-family: 'Inter', sans-serif; font-size: 15px; line-height: 1.6; overflow-x: hidden; }
 
-    /* NAV */
-    .nav {
-      background: #0072CE;
-      padding: 0 32px;
-      height: 60px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-    }
-    .nav-logo img { height: 36px; display: block; }
-    .nav-link { font-size: 13px; color: rgba(255,255,255,0.7); text-decoration: none; }
-    .nav-link:hover { color: #fff; }
+        /* NAV */
+        nav { position: sticky; top: 0; z-index: 100; background: var(--blanco); border-bottom: 1px solid var(--gris-borde); padding: 0 24px; display: flex; align-items: center; justify-content: space-between; height: 64px; }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-esm { font-weight: 900; font-size: 24px; letter-spacing: -0.03em; line-height: 1; }
+        .nav-esm .e { color: #1a6fc4; } .nav-esm .s { color: #e63030; } .nav-esm .m { color: #F5C800; }
+        .nav-sub { font-size: 10px; color: var(--gris-medio); font-weight: 500; letter-spacing: 0.05em; }
+        .nav-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gris-medio); }
 
-    /* HERO */
-    .hero {
-      background: #0072CE;
-      padding: 64px 24px 72px;
-      text-align: center;
-    }
-    .hero-badge {
-      display: inline-block;
-      background: #47D7AC;
-      color: #04342C;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      padding: 5px 16px;
-      border-radius: 20px;
-      margin-bottom: 24px;
-    }
-    .hero h1 {
-      font-size: 36px;
-      font-weight: 700;
-      color: #fff;
-      line-height: 1.25;
-      margin-bottom: 16px;
-    }
-    .hero h1 span { color: #FFD100; }
-    .hero p {
-      font-size: 16px;
-      color: rgba(255,255,255,0.75);
-      max-width: 460px;
-      margin: 0 auto 36px;
-      line-height: 1.7;
-    }
-    .hero-counter {
-      display: inline-flex;
-      align-items: center;
-      gap: 20px;
-      background: rgba(255,255,255,0.1);
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 14px;
-      padding: 16px 28px;
-      color: #fff;
-    }
-    .counter-block { text-align: center; }
-    .counter-num { font-size: 28px; font-weight: 700; color: #FFD100; }
-    .counter-label { font-size: 11px; color: rgba(255,255,255,0.6); margin-top: 2px; }
-    .divider-v { width: 1px; height: 44px; background: rgba(255,255,255,0.2); }
-    .counter-msg { font-size: 13px; color: rgba(255,255,255,0.8); line-height: 1.6; text-align: left; }
-    .counter-msg strong { color: #FFD100; font-size: 16px; }
+        /* BUTTONS */
+        .btn { display: inline-block; font-family: 'Inter', sans-serif; font-weight: 700; font-size: 14px; padding: 14px 28px; border-radius: 8px; border: none; cursor: pointer; text-decoration: none; transition: all 0.2s; letter-spacing: 0.01em; }
+        .btn-blue { background: var(--azul); color: var(--blanco); }
+        .btn-blue:hover { background: var(--azul-oscuro); transform: translateY(-1px); }
+        .btn-outline { background: var(--blanco); color: var(--negro); border: 1.5px solid var(--gris-borde); }
+        .btn-outline:hover { border-color: var(--azul); color: var(--azul); transform: translateY(-1px); }
+        .btn-yellow { background: var(--amarillo); color: var(--negro); }
+        .btn-yellow:hover { background: #e0b800; transform: translateY(-1px); }
+        .btn-white { background: var(--blanco); color: var(--azul); }
+        .btn-white:hover { background: var(--gris-claro); }
+        .btn-outline-white { background: transparent; color: var(--blanco); border: 1.5px solid rgba(255,255,255,0.4); }
+        .btn-outline-white:hover { border-color: white; background: rgba(255,255,255,0.1); }
+        .btn-lg { font-size: 15px; padding: 16px 36px; }
+        .btn-block { display: block; width: 100%; text-align: center; }
 
-    /* SECTIONS */
-    .section { padding: 56px 24px; max-width: 800px; margin: 0 auto; }
-    .section-title { font-size: 24px; font-weight: 700; color: #1a1a1a; text-align: center; margin-bottom: 8px; }
-    .section-sub { font-size: 15px; color: #666; text-align: center; margin-bottom: 36px; }
+        /* HERO */
+        .hero { background: var(--gris-claro); border-bottom: 1px solid var(--gris-borde); padding: 72px 24px 80px; text-align: center; }
+        .eyebrow { display: inline-block; font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--azul); margin-bottom: 20px; }
+        .hero-title { font-size: clamp(38px, 7vw, 68px); font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; color: var(--negro); margin-bottom: 20px; }
+        .hero-title em { font-style: normal; color: var(--azul); }
+        .hero-sub { font-size: 16px; color: var(--gris-oscuro); max-width: 460px; margin: 0 auto 40px; font-weight: 400; line-height: 1.75; }
+        .hero-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
 
-    /* PLANES */
-    .plans-wrap { max-width: 800px; margin: 0 auto; padding: 56px 24px; }
-    .plans-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-    @media (max-width: 560px) { .plans-grid { grid-template-columns: 1fr; } }
-    .plan-card {
-      background: #fff;
-      border: 1px solid #e0e0e0;
-      border-radius: 16px;
-      padding: 28px 24px;
-      position: relative;
-    }
-    .plan-card.featured { border: 2.5px solid #0072CE; }
-    .plan-badge {
-      position: absolute;
-      top: -13px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #0072CE;
-      color: #fff;
-      font-size: 11px;
-      font-weight: 700;
-      padding: 4px 16px;
-      border-radius: 20px;
-      white-space: nowrap;
-    }
-    .plan-name { font-size: 15px; font-weight: 600; color: #333; margin-bottom: 6px; }
-    .plan-price { font-size: 28px; font-weight: 700; color: #0072CE; margin-bottom: 4px; }
-    .plan-freq { font-size: 12px; color: #999; margin-bottom: 20px; }
-    .plan-perks { list-style: none; margin-bottom: 24px; }
-    .plan-perks li {
-      font-size: 13px;
-      color: #555;
-      padding: 5px 0;
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      line-height: 1.5;
-    }
-    .perk-dot { width: 7px; height: 7px; border-radius: 50%; background: #47D7AC; flex-shrink: 0; margin-top: 5px; }
-    .perk-dot.gold { background: #FFD100; border: 1px solid #e0b800; }
-    .btn-plan {
-      display: block;
-      width: 100%;
-      padding: 12px;
-      border-radius: 10px;
-      font-size: 14px;
-      font-weight: 600;
-      text-align: center;
-      cursor: pointer;
-      border: none;
-      transition: opacity 0.15s;
-      text-decoration: none;
-    }
-    .btn-plan:hover { opacity: 0.88; }
-    .btn-primary { background: #0072CE; color: #fff; }
-    .btn-outline { background: transparent; border: 1.5px solid #0072CE; color: #0072CE; }
+        /* STATS */
+        .stats { display: flex; background: var(--blanco); border-bottom: 1px solid var(--gris-borde); }
+        .stat { flex: 1; padding: 24px 20px; text-align: center; border-right: 1px solid var(--gris-borde); }
+        .stat:last-child { border-right: none; }
+        .stat-n { font-size: 26px; font-weight: 900; letter-spacing: -0.03em; color: var(--negro); display: block; }
+        .stat-l { font-size: 10px; color: var(--gris-medio); font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; margin-top: 2px; }
 
-    /* FUNDADORES */
-    .founder-section {
-      background: #0A1929;
-      padding: 56px 24px;
-      text-align: center;
-    }
-    .founder-inner { max-width: 600px; margin: 0 auto; }
-    .founder-section h2 { font-size: 24px; font-weight: 700; color: #FFD100; margin-bottom: 12px; }
-    .founder-section p { font-size: 15px; color: rgba(255,255,255,0.65); max-width: 440px; margin: 0 auto 32px; line-height: 1.7; }
-    .founder-tiers { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    @media (max-width: 440px) { .founder-tiers { grid-template-columns: 1fr; } }
-    .tier-card { border-radius: 14px; padding: 20px; text-align: left; }
-    .tier-early { background: rgba(255,209,0,0.1); border: 1px solid rgba(255,209,0,0.3); }
-    .tier-regular { background: rgba(105,179,231,0.1); border: 1px solid rgba(105,179,231,0.25); }
-    .tier-label { font-size: 11px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 8px; }
-    .tier-early .tier-label { color: #FFD100; }
-    .tier-regular .tier-label { color: #69B3E7; }
-    .tier-range { font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 4px; }
-    .tier-price { font-size: 15px; font-weight: 600; }
-    .tier-early .tier-price { color: rgba(255,209,0,0.85); }
-    .tier-regular .tier-price { color: rgba(105,179,231,0.85); }
-    .tier-detail { font-size: 12px; color: rgba(255,255,255,0.4); margin-top: 6px; }
+        /* SECTION HEADERS */
+        .section { padding: 72px 24px; max-width: 900px; margin: 0 auto; }
+        .sec-eye { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--azul); margin-bottom: 10px; }
+        .sec-title { font-size: clamp(28px, 5vw, 44px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.08; margin-bottom: 10px; }
+        .sec-sub { font-size: 15px; color: var(--gris-oscuro); max-width: 500px; line-height: 1.75; margin-bottom: 40px; }
 
-    /* BENEFICIOS */
-    .benefits-wrap { background: #f0f4f8; padding: 56px 24px; }
-    .benefits-inner { max-width: 700px; margin: 0 auto; }
-    .benefits-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    @media (max-width: 500px) { .benefits-grid { grid-template-columns: 1fr; } }
-    .benefit-card {
-      background: #fff;
-      border-radius: 14px;
-      padding: 20px;
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      border: 1px solid #e8e8e8;
-    }
-    .benefit-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      font-size: 18px;
-    }
-    .benefit-name { font-size: 14px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
-    .benefit-desc { font-size: 12px; color: #777; line-height: 1.6; }
+        /* PLANES */
+        .planes-bg { background: var(--gris-claro); border-top: 1px solid var(--gris-borde); border-bottom: 1px solid var(--gris-borde); }
+        .planes-inner { max-width: 900px; margin: 0 auto; padding: 72px 24px; }
+        .planes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 48px; }
+        .plan { background: var(--blanco); border: 1.5px solid var(--gris-borde); border-radius: 12px; padding: 36px 32px; position: relative; transition: box-shadow 0.2s, transform 0.2s; }
+        .plan:hover { box-shadow: 0 8px 32px rgba(0,0,0,0.08); transform: translateY(-2px); }
+        .plan.best { border-color: var(--amarillo); border-width: 2px; background: var(--amarillo-bg); }
+        .plan-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--amarillo); color: var(--negro); font-size: 10px; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; padding: 4px 14px; border-radius: 20px; white-space: nowrap; }
+        .plan-tag { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gris-medio); margin-bottom: 20px; }
+        .plan-price { font-size: 52px; font-weight: 900; letter-spacing: -0.04em; line-height: 1; color: var(--negro); }
+        .plan-unit { font-size: 14px; font-weight: 400; color: var(--gris-medio); margin-left: 3px; }
+        .plan-equiv { font-size: 13px; font-weight: 600; color: var(--azul); margin-top: 4px; }
+        .plan.best .plan-equiv { color: #a07a00; }
+        .plan-ahorro { display: inline-block; font-size: 11px; font-weight: 700; background: var(--verde-bg); color: var(--verde); padding: 3px 10px; border-radius: 20px; margin: 8px 0 24px; }
+        .plan-period { font-size: 12px; color: var(--gris-medio); margin: 4px 0 24px; }
+        .plan-features { list-style: none; margin-bottom: 28px; }
+        .plan-features li { font-size: 13px; color: var(--gris-oscuro); padding: 9px 0; border-bottom: 1px solid var(--gris-borde); display: flex; align-items: flex-start; gap: 10px; line-height: 1.5; }
+        .plan-features li::before { content: '✓'; color: var(--azul); font-weight: 800; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
 
-    /* PASOS */
-    .steps-wrap { max-width: 540px; margin: 0 auto; }
-    .step { display: flex; gap: 16px; align-items: flex-start; margin-bottom: 28px; }
-    .step-num {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background: #0072CE;
-      color: #fff;
-      font-size: 14px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    .step-title { font-size: 15px; font-weight: 600; color: #1a1a1a; margin-bottom: 4px; }
-    .step-desc { font-size: 13px; color: #666; line-height: 1.6; }
+        /* DORSAL */
+        .dorsal-callout { background: var(--negro); color: var(--blanco); border-radius: 12px; padding: 40px 36px; margin-top: 48px; display: grid; grid-template-columns: auto 1fr; gap: 32px; align-items: center; }
+        .dorsal-num { font-size: 80px; font-weight: 900; letter-spacing: -0.05em; line-height: 120px; color: var(--amarillo); width: 120px; height: 120px; text-align: center; flex-shrink: 0; border: 3px solid var(--amarillo); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+        .dorsal-title { font-size: 20px; font-weight: 800; letter-spacing: -0.02em; margin-bottom: 8px; }
+        .dorsal-desc { font-size: 14px; color: rgba(255,255,255,0.55); line-height: 1.7; }
 
-    /* CTA FOOTER */
-    .cta-footer { background: #0072CE; padding: 64px 24px; text-align: center; }
-    .cta-footer h2 { font-size: 26px; font-weight: 700; color: #fff; margin-bottom: 12px; }
-    .cta-footer p { font-size: 15px; color: rgba(255,255,255,0.75); margin-bottom: 28px; }
-    .btn-cta {
-      display: inline-block;
-      background: #FFD100;
-      color: #0A1929;
-      font-size: 15px;
-      font-weight: 700;
-      padding: 14px 36px;
-      border-radius: 10px;
-      cursor: pointer;
-      border: none;
-      text-decoration: none;
-      transition: opacity 0.15s;
-    }
-    .btn-cta:hover { opacity: 0.9; }
+        /* FUNDADOR */
+        .fund-bg { background: var(--negro); color: var(--blanco); }
+        .fund-inner { max-width: 900px; margin: 0 auto; padding: 72px 24px; }
+        .fund-eye { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--amarillo); margin-bottom: 10px; }
+        .fund-title { font-size: clamp(28px, 5vw, 50px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 14px; }
+        .fund-sub { font-size: 15px; color: rgba(255,255,255,0.5); max-width: 520px; line-height: 1.75; margin-bottom: 48px; }
 
-    .footer { background: #0A1929; padding: 24px; text-align: center; }
-    .footer p { font-size: 12px; color: rgba(255,255,255,0.35); margin-bottom: 4px; }
-    .footer a { color: rgba(255,255,255,0.5); text-decoration: none; }
-    .footer-dev { font-size: 11px; color: rgba(255,255,255,0.2); margin-top: 8px; }
-  </style>
+        /* PRECIOS CON FONDO DE NUMERO */
+        .price-row { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-bottom: 32px; }
+        .price-box { padding: 28px 24px; position: relative; overflow: hidden; z-index: 1; }
+        .price-box::after { position: absolute; right: -10px; bottom: -20px; font-size: 120px; font-weight: 900; color: rgba(255,255,255,0.03); z-index: -1; line-height: 1; }
+        .price-box.early { background: #1f1a00; border: 1px solid rgba(245,200,0,0.2); border-radius: 10px 0 0 10px; }
+        .price-box.early::after { content: '30'; color: rgba(245,200,0,0.05); }
+        .price-box.regular { background: #1a1a1a; border-radius: 0 10px 10px 0; }
+        .price-box.regular::after { content: '100'; }
+        .price-box-label { font-size: 10px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amarillo); margin-bottom: 8px; }
+        .price-box-range { font-size: 22px; font-weight: 900; letter-spacing: -0.02em; color: var(--blanco); margin-bottom: 4px; }
+        .price-box-price { font-size: 28px; font-weight: 900; letter-spacing: -0.03em; color: var(--amarillo); margin-bottom: 6px; }
+        .price-box-desc { font-size: 11px; color: rgba(255,255,255,0.35); line-height: 1.6; }
+
+        /* TABLA COMPARATIVA */
+        .comp-table { width: 100%; border-collapse: collapse; margin-bottom: 40px; margin-top: 40px; }
+        .comp-table th { padding: 16px 20px; text-align: left; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .comp-table th:first-child { color: rgba(255,255,255,0.4); width: 50%; }
+        .comp-table th.col-early { color: var(--amarillo); text-align: center; }
+        .comp-table th.col-regular { color: rgba(255,255,255,0.6); text-align: center; }
+        .comp-table td { padding: 14px 20px; font-size: 13px; border-bottom: 1px solid rgba(255,255,255,0.06); vertical-align: top; line-height: 1.5; }
+        .comp-table td:first-child { color: rgba(255,255,255,0.8); }
+        .comp-table td.center { text-align: center; }
+        .comp-table tr.highlight td { background: rgba(245,200,0,0.05); }
+        .check-yes { color: var(--amarillo); font-size: 18px; font-weight: 900; }
+        .check-no { color: rgba(255,255,255,0.2); font-size: 18px; }
+        .check-both { color: rgba(255,255,255,0.5); font-size: 18px; }
+        .fund-nota { font-size: 13px; color: rgba(255,255,255,0.38); line-height: 1.75; border-top: 1px solid rgba(255,255,255,0.08); padding-top: 24px; margin-bottom: 40px; }
+        .fund-nota strong { color: var(--amarillo); font-weight: 600; }
+
+        /* BENEFICIOS GRID */
+        .bene-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--gris-borde); border: 1px solid var(--gris-borde); border-radius: 12px; overflow: hidden; margin-top: 48px; }
+        .bene { background: var(--blanco); padding: 32px; transition: background 0.2s; }
+        .bene:hover { background: var(--azul-claro); }
+        .bene-icon { font-size: 28px; margin-bottom: 12px; display: block; }
+        .bene-name { font-size: 16px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 6px; }
+        .bene-desc { font-size: 13px; color: var(--gris-oscuro); line-height: 1.65; }
+
+        /* PASOS */
+        .pasos-bg { background: var(--gris-claro); border-top: 1px solid var(--gris-borde); border-bottom: 1px solid var(--gris-borde); }
+
+        .pasos-inner { max-width: 900px; margin: 0 auto; padding: 72px 24px; }
+        .pasos-list { margin-top: 48px; max-width: 620px; }
+        .paso { display: flex; gap: 20px; padding: 28px 0; border-bottom: 1px solid var(--gris-borde); align-items: flex-start; }
+        .paso:last-child { border-bottom: none; }
+        .paso-num { width: 40px; height: 40px; border-radius: 50%; background: var(--azul); color: var(--blanco); font-size: 15px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+
+        .paso-t { font-size: 16px; font-weight: 800; letter-spacing: -0.01em; margin-bottom: 4px; }
+        .paso-d { font-size: 13px; color: var(–gris-oscuro); line-height: 1.65; }
+
+        /* CTA */
+        .cta-bg { background-color: var(--azul)!important; color: var(--blanco); text-align: center; padding: 80px 24px; }
+        .cta-eye { font-size: 11px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; opacity: 0.6; margin-bottom: 14px; }
+        .cta-title { font-size: clamp(32px, 6vw, 56px); font-weight: 900; letter-spacing: -0.03em; line-height: 1.05; margin-bottom: 14px; }
+        .cta-sub { font-size: 15px; opacity: 0.65; max-width: 420px; margin: 0 auto 40px; line-height: 1.75; }
+        .cta-btns { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+
+        /* FOOTER */
+
+        footer { padding: 28px 24px; border-top: 1px solid var(--gris-borde); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+
+        .foot-logo { font-weight: 900; font-size: 20px; letter-spacing: -0.02em; }
+        .foot-logo .e { color: #1a6fc4; } .foot-logo .s { color: #e63030; } .foot-logo .m { color: #F5C800; }
+        .foot-tag { font-size: 11px; color: var(--gris-medio); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; }
+        .foot-link { font-size: 12px; color: var(–azul); font-weight: 500; text-decoration: none; }
+        .foot-link:hover { text-decoration: underline; }
+
+        /* MODAL */
+        .modal-ov { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 1000; align-items: center; justify-content: center; padding: 20px; }
+        .modal-ov.on { display: flex; }
+        .modal { background: var(--blanco); border-radius: 16px; padding: 40px 36px; max-width: 440px; width: 100%; position: relative; box-shadow: 0 24px 64px rgba(0,0,0,0.18); }
+        .modal-x { position: absolute; top: 16px; right: 16px; background: var(--gris-claro); border: none; width: 32px; height: 32px; border-radius: 50%; font-size: 14px; cursor: pointer; color: var(--gris-oscuro); display: flex; align-items: center; justify-content: center; transition: background 0.2s;}
+        .modal-x:hover { background: var(--gris-borde); }
+        .modal-eye { font-size: 10px; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--azul); margin-bottom: 6px; }
+        .modal-eye.gold { color: #a07a00; }
+        .modal-ttl { font-size: 22px; font-weight: 900; letter-spacing: -0.02em; margin-bottom: 4px; }
+        .modal-prc { font-size: 13px; color: var(--gris-medio); margin-bottom: 24px; }
+
+        .fg { margin-bottom: 14px; }
+        .fl { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gris-oscuro); margin-bottom: 5px; }
+        .fi { width: 100%; background: var(--gris-claro); border: 1.5px solid var(--gris-borde); border-radius: 8px; color: var(--negro); font-family: 'Inter', sans-serif; font-size: 14px; padding: 12px 14px; outline: none; }
+        .modal-btn { display: block; width: 100%; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 700; padding: 15px; border-radius: 8px; border: none; cursor: pointer; margin-top: 20px; transition: all 0.2s; }
+        .modal-btn.blue { background: var(--azul); color: var(--blanco); }
+        .modal-btn.yellow { background: var(--amarillo); color: var(--negro); }
+
+        .modal-btn.yellow:hover { background: #e0b800; }
+        .modal-note { font-size: 11px; color: var(--gris-medio); text-align: center; margin-top: 10px; }
+
+        @media (max-width: 640px) {
+            .planes-grid, .bene-grid, .price-row { grid-template-columns: 1fr; }
+            .price-box.early { border-radius: 10px 10px 0 0; }
+            .price-box.regular { border-radius: 0 0 10px 10px; }
+            .dorsal-callout { grid-template-columns: 1fr; text-align: center; justify-items: center; }
+            .stats { flex-wrap: wrap; }
+            .stat { min-width: 50%; border-right: none; border-bottom: 1px solid var(--gris-borde); }
+            .modal { padding: 28px 20px; }
+        }
+    </style>
 </head>
 <body>
-<!-- AGREGAMOS UN FORMULARIO INTERMEDIO -->
-<div id="registrationModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:1000; align-items:center; justify-content:center;">
-  <div style="background:white; padding:30px; border-radius:15px; max-width:400px; width:90%; position:relative;">
-    <button onclick="document.getElementById('registrationModal').style.display='none'" 
-            style="position:absolute; top:15px; right:15px; background:none; border:none; font-size:22px; cursor:pointer; color:#999;">
-      &times;
-    </button>
-    <h3 style="margin-bottom:15px;">¡Ya casi eres socio!</h3>
-    <p style="font-size:14px; color:#666; margin-bottom:20px;">Completa tus datos para proceder al pago seguro.</p>
-    
-    <form id="formSocio">
-      <input type="hidden" id="selectedPlan" name="plan">
-      <input type="text" id="cedulaPersona" placeholder="Ej: 1234567" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;">
-      <input type="text" id="userName" placeholder="Nombre y Apellido" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;">
-      <input type="tel" id="userPhone" placeholder="WhatsApp (ej: 0981123456)" required style="width:100%; padding:12px; margin-bottom:10px; border:1px solid #ddd; border-radius:8px;">
-      <input type="email" id="userEmail" placeholder="Tu Email" required style="width:100%; padding:12px; margin-bottom:20px; border:1px solid #ddd; border-radius:8px;">
-      
-      <button type="submit" id="btnSubmit" style="width:100%; background:#0072CE; color:white; border:none; padding:15px; border-radius:10px; font-weight:700; cursor:pointer;">
-        Ir a pagar con Tpago
-      </button>
-    </form>
-  </div>
-</div>
-  
 
-<!-- NAV -->
-<nav class="nav">
-  <span class="nav-logo"><img src="esm-logo.png" alt="ESM — En Sus Marcas"></span>
-  <a href="https://ensusmarcas.com.py" class="nav-link">← Volver a ensusmarcas.com.py</a>
+<nav>
+    <a href="https://ensusmarcas.com.py" class="nav-logo">
+        <div>
+            <div class="nav-esm"><span class="e">e</span><span class="s">s</span><span class="m">m</span></div>
+            <div class="nav-sub">en sus marcas</div>
+        </div>
+    </a>
+    <div class="nav-tag">Club ESM</div>
 </nav>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-badge">Lanzamiento exclusivo</div>
-  <h1>Corré más lejos<br>con el <span>Club ESM</span></h1>
-  <p>Descuentos en marcas deportivas, acceso preferencial a carreras ESM y una comunidad que corre con vos.</p>
-  <div class="hero-counter">
-    <div class="counter-block">
-      <div class="counter-num" id="contador">-</div>
-      <div class="counter-label">socios fundadores</div>
+<div class="hero">
+    <div class="eyebrow">Lanzamiento · Cupos de socio fundador limitados</div>
+    <h1 class="hero-title">De corredores,<br><em>para corredores.</em></h1>
+    <p class="hero-sub">Descuentos en marcas deportivas, correr juntos una vez por mes, y acceso preferencial a todas las carreras ESM.</p>
+    <div class="hero-btns">
+        <button class="btn btn-yellow btn-lg" onclick="openModal('fundador')">Quiero ser socio fundador →</button>
+        <button class="btn btn-outline" onclick="document.getElementById('planes').scrollIntoView({behavior:'smooth'})">Ver planes</button>
     </div>
-    <div class="divider-v"></div>
-    <div class="counter-msg">
-      Solo quedan<br>
-      <strong id="cupos">-</strong> cupos de fundador
+</div>
+
+<div class="stats">
+    <div class="stat"><span class="stat-n">3</span><span class="stat-l">Fechas Triple Crown</span></div>
+    <div class="stat"><span class="stat-n">+1.000</span><span class="stat-l">Corredores por fecha</span></div>
+    <div class="stat"><span class="stat-n" id="contador">-</span><span class="stat-l">Socios actuales</span></div>
+    <div class="stat"><span class="stat-n" id="cupos">-</span><span class="stat-l">Cupos Fundador</span></div>
+</div>
+
+<div class="planes-bg" id="planes">
+    <div class="planes-inner">
+        <div class="sec-eye">Membresía Club ESM</div>
+        <h2 class="sec-title">Elegí cómo querés correr.</h2>
+        <p class="sec-sub">Dos planes, una misma comunidad. Cancelás cuando querés, sin compromisos.</p>
+
+        <div class="planes-grid">
+            <div class="plan">
+                <div class="plan-tag">Plan Mensual</div>
+                <div><span class="plan-price">₲50K</span><span class="plan-unit">/mes</span></div>
+                <div class="plan-period">Renovación automática · Cancelás cuando querés</div>
+                <ul class="plan-features">
+                    <li>Descuentos en marcas deportivas aliadas</li>
+                    <li>Precios especiales en carreras ESM</li>
+                    <li>Correr juntos una vez por mes</li>
+                    <li>Capacitaciones y encuentros del club</li>
+                </ul>
+                <button class="btn btn-blue btn-block" onclick="openModal('mensual')">Unirme mensual →</button>
+            </div>
+
+            <div class="plan best">
+                <div class="plan-badge">⭐ Mejor valor</div>
+                <div class="plan-tag">Plan Anual</div>
+                <div><span class="plan-price">₲480K</span><span class="plan-unit">/año</span></div>
+                <div class="plan-equiv">= ₲ 40.000 por mes</div>
+                <div class="plan-ahorro">Ahorrás ₲ 120.000 vs mensual</div>
+                <ul class="plan-features">
+                    <li>Todo lo incluido en el plan mensual</li>
+                    <li>2 meses gratis respecto al mensual</li>
+                    <li>Acceso prioritario a eventos ESM</li>
+                    <li>Precio bloqueado por 12 meses</li>
+                </ul>
+                <button class="btn btn-yellow btn-block" onclick="openModal('anual')">Unirme anual →</button>
+            </div>
+        </div>
+
+        <div class="dorsal-callout">
+            <div class="dorsal-num">07</div>
+            <div>
+                <div class="dorsal-title">Tu dorsal de socio, siempre el mismo.</div>
+                <div class="dorsal-desc">Los <strong>Socios Fundadores</strong> aseguran los números del 01 al 100 para siempre. Los socios anuales y mensuales reciben su número a partir del 101. 
+            Ese número es tu identidad en cada carrera ESM.</div>
+            </div>
+        </div>
     </div>
-  </div>
-  <div class="progress-container" style="width: 100%; max-width: 400px; background: rgba(255,255,255,0.2); height: 10px; border-radius: 5px; margin: 20px auto; overflow: hidden;">
-    <div id="barraProgreso" style="width: 0%; height: 100%; background: #47D7AC; transition: width 1s ease-in-out;"></div>
-  </div>
-</section>
+</div>
 
-<!-- PLANES -->
-<div class="plans-wrap">
-  <p class="section-title" style="text-align:center;margin-bottom:8px;">Elegí tu plan</p>
-  <p class="section-sub">Cancelá cuando quieras. Sin compromisos.</p>
-  <div class="plans-grid">
+<div class="fund-bg" id="fundador">
+    <div class="fund-inner">
+        <div class="fund-eye">Socio Fundador · Solo 100 cupos · Una vez en la historia de ESM</div>
+        <h2 class="fund-title">Ser socio fundador<br>no es un plan.<br>Es una decisión.</h2>
+        <p class="fund-sub">Los primeros 100 socios de la historia del Club ESM. Cuando se agoten estos cupos, el socio fundador deja de existir. Para siempre.</p>
 
-    <div class="plan-card">
-      <div class="plan-name">Mensual</div>
-      <div class="plan-price">₲ 50.000</div>
-      <div class="plan-freq">por mes · renovación automática</div>
-      <ul class="plan-perks">
-        <li><span class="perk-dot"></span>Acceso a descuentos en marcas deportivas aliadas</li>
-        <li><span class="perk-dot"></span>Descuentos en carreras organizadas por ESM</li>
-        <li><span class="perk-dot"></span>Acceso al grupo exclusivo de WhatsApp</li>
-        <li><span class="perk-dot"></span>Encuentros y capacitaciones del club</li>
-      </ul>
-      <!-- Reemplazá el href con tu link de Tpago mensual -->
-      <button onclick="abrirRegistro('Mensual')" class="btn-plan btn-outline">Unirme mensual</button>
+        <div class="price-row">
+            <div class="price-box early">
+                <div class="price-box-label">Early Bird · Primeros</div>
+                <div class="price-box-range">Socios 01 – 30</div>
+                <div class="price-box-price">₲ 900.000</div>
+                <div class="price-box-desc">Pago único · Incluye membresía anual + todos los beneficios fundador</div>
+            </div>
+            <div class="price-box regular">
+                <div class="price-box-label">Socio Fundador</div>
+                <div class="price-box-range">Socios 31 – 100</div>
+                <div class="price-box-price">₲ 1.100.000</div>
+                <div class="price-box-desc">Pago único · Incluye membresía anual + todos los beneficios fundador</div>
+            </div>
+        </div>
+
+        <table class="comp-table">
+            <thead>
+                <tr>
+                    <th>Beneficio</th>
+                    <th class="col-early">Socios 01–30</th>
+                    <th class="col-regular">Socios 31–100</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Membresía anual incluida</td><td class="center"><span class="check-both">✓</span></td><td class="center"><span class="check-both">✓</span></td></tr>
+                <tr><td>Dorsal exclusivo y permanente en todas las carreras ESM</td><td class="center"><span class="check-both">✓</span></td><td class="center"><span class="check-both">✓</span></td></tr>
+                <tr><td>Correr juntos una vez por mes</td><td class="center"><span class="check-both">✓</span></td><td class="center"><span class="check-both">✓</span></td></tr>
+                <tr><td>Descuentos en marcas deportivas aliadas</td><td class="center"><span class="check-both">✓</span></td><td class="center"><span class="check-both">✓</span></td></tr>
+                <tr><td>Acceso prioritario a inscripciones ESM</td><td class="center"><span class="check-both">✓</span></td><td class="center"><span class="check-both">✓</span></td></tr>
+                <tr><td>Reconocimiento como socio fundador en web y resultados ESM</td><td class="center"><span class="check-both">✓</span></td><td class="center"><span class="check-both">✓</span></td></tr>
+                <tr class="highlight"><td><strong>Invitación permanente a la mesa de decisiones del club</strong><br><span style="font-size:11px;color:rgba(255,255,255,0.3)">Encuestas, próximas carreras, beneficios futuros</span></td><td class="center"><span class="check-yes">✓</span></td><td class="center"><span class="check-no">—</span></td></tr>
+                <tr class="highlight"><td><strong>Reconocimiento en palco y ceremonia en cada fecha Triple Crown</strong></td><td class="center"><span class="check-yes">✓</span></td><td class="center"><span class="check-no">—</span></td></tr>
+                <tr class="highlight"><td><strong>Acceso exclusivo a pre-lanzamientos y novedades ESM</strong><br><span style="font-size:11px;color:rgba(255,255,255,0.3)">Antes que cualquier otro socio o corredor</span></td><td class="center"><span class="check-yes">✓</span></td><td class="center"><span class="check-no">—</span></td></tr>
+            </tbody>
+        </table>
+
+        <div class="fund-nota">
+            <strong>¿Por qué los socios 01–30 pagan menos?</strong> Porque llegaron primero, cuando el club todavía no era nada. Ese riesgo y esa confianza tienen precio. Los socios 31–100 son igualmente fundadores — pero los primeros 30 tienen voz activa en lo que el club se convierte. Eso no tiene precio de mercado. Lo fijamos nosotros.<br><br>
+            <strong>¿Por qué cuesta más que la membresía anual?</strong> La membresía es acceso. El socio fundador es historia. Cuando el club tenga 500 socios, el número 12 no va a poder comprarse.
+        </div>
+
+        <button class="btn btn-yellow btn-lg" onclick="openModal('fundador')">Quiero ser socio fundador →</button>
     </div>
+</div>
 
-    <div class="plan-card featured">
-      <div class="plan-badge">Cupos limitados</div>
-      <div class="plan-name">Anual · Fundador</div>
-      <div class="plan-price" style="font-size:24px;">₲ 700.000</div>
-      <div class="plan-freq">socios 1–30 · Early Bird · Nº de socio</div>
-      <ul class="plan-perks">
-        <li><span class="perk-dot gold"></span>Todo lo incluido en el plan mensual</li>
-        <li><span class="perk-dot gold"></span>Número de fundador (01–30)</li>
-        <li><span class="perk-dot gold"></span>Insignia digital de socio fundador</li>
-        <li><span class="perk-dot gold"></span>Acceso prioritario a eventos ESM</li>
-      </ul>
-      <!-- Reemplazá el href con tu link de Tpago anual Early Bird -->
-      <button onclick="abrirRegistro('Anual')" class="btn-plan btn-outline">Unirme anual</button>
+<div class="section">
+    <div class="sec-eye">Beneficios</div>
+    <h2 class="sec-title">Todo lo que obtenés<br>siendo socio ESM.</h2>
+    <div class="bene-grid">
+        <div class="bene"><span class="bene-icon">🏷️</span><div class="bene-name">Descuentos en marcas</div><p class="bene-desc">Precios exclusivos en tiendas deportivas aliadas a En Sus Marcas.</p></div>
+        <div class="bene"><span class="bene-icon">🏃</span><div class="bene-name">Correr juntos</div><p class="bene-desc">Una salida mensual organizada por ESM, exclusiva para socios.</p></div>
+        <div class="bene"><span class="bene-icon">🏁</span><div class="bene-name">Carreras con descuento</div><p class="bene-desc">Precio especial en todas las carreras ESM, incluidas las Triple Crown.</p></div>
+        <div class="bene"><span class="bene-icon">⚡</span><div class="bene-name">Acceso prioritario</div><p class="bene-desc">Ventana de inscripción anticipada en todos los eventos ESM.</p></div>
     </div>
+</div>
 
+<hr class="divider">
+
+<div class="pasos-bg">
+  <div class="pasos-inner">
+    <div class="sec-eye">¿Cómo me uno?</div>
+    <h2 class="sec-title">Simple. En tres pasos.</h2>
+    <div class="pasos-list">
+      <div class="paso">
+        <div class="paso-num">1</div>
+        <div>
+          <div class="paso-t">Elegí tu plan</div>
+          <p class="paso-d">Mensual, anual o socio fundador. Si querés ser parte de los primeros 100, asegurate antes de que se agoten los cupos.</p>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">2</div>
+        <div>
+          <div class="paso-t">Pagá con Tpago</div>
+          <p class="paso-d">Proceso rápido y seguro con Tpago (Bancard). Confirmación de pago inmediata.</p>
+        </div>
+      </div>
+      <div class="paso">
+        <div class="paso-num">3</div>
+        <div>
+          <div class="paso-t">Bienvenido al club</div>
+          <p class="paso-d">Recibís confirmación por WhatsApp con acceso al grupo exclusivo y tus beneficios activos desde el día uno.</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- FUNDADORES -->
-<section class="founder-section">
-  <div class="founder-inner">
-    <h2>Los primeros 100 son fundadores</h2>
-    <p>Dos niveles exclusivos para quienes entran primero. Tu número de socio queda grabado para siempre en tu kit ESM.</p>
-    <div class="founder-tiers">
-      <div class="tier-card tier-early">
-        <div class="tier-label">Early Bird</div>
-        <div class="tier-range">01 – 30</div>
-        <div class="tier-price">₲ 700.000</div>
-        <div class="tier-detail">Número de socio 01–30</div>
-      </div>
-      <div class="tier-card tier-regular">
-        <div class="tier-label">Regular</div>
-        <div class="tier-range">31 – 100</div>
-        <div class="tier-price">₲ 900.000</div>
-        <div class="tier-detail">Número de socio 31–100</div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- CTA -->
 
-<!-- BENEFICIOS -->
-<section class="benefits-wrap">
-  <div class="benefits-inner">
-    <p class="section-title">Beneficios del club</p>
-    <p class="section-sub">Todo lo que obtenés siendo socio ESM</p>
-    <div class="benefits-grid">
-      <div class="benefit-card">
-        <div class="benefit-icon" style="background:#E6F1FB;">🏷️</div>
-        <div>
-          <div class="benefit-name">Descuentos en marcas</div>
-          <div class="benefit-desc">Acceso directo a precios exclusivos en tiendas deportivas aliadas a En Sus Marcas.</div>
-        </div>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-icon" style="background:#E1F5EE;">🏁</div>
-        <div>
-          <div class="benefit-name">Carreras con descuento</div>
-          <div class="benefit-desc">Precios especiales en todas las carreras organizadas por En Sus Marcas.</div>
-        </div>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-icon" style="background:#FFF9E0;">⭐</div>
-        <div>
-          <div class="benefit-name">Número de fundador</div>
-          <div class="benefit-desc">Identificación exclusiva para los primeros 100 socios del club.</div>
-        </div>
-      </div>
-      <div class="benefit-card">
-        <div class="benefit-icon" style="background:#FFF0F0;">🤝</div>
-        <div>
-          <div class="benefit-name">Comunidad En Sus Marcas</div>
-          <div class="benefit-desc">Grupo privado de WhatsApp, encuentros, capacitaciones y mucho más.</div>
-        </div>
-      </div>
+<div class="cta-bg">
+    <div class="cta-eye">Club ESM · Paraguay</div>
+    <h2 class="cta-title">Quedan pocos<br>cupos de socio fundador.</h2>
+    <p class="cta-sub">Cuando los 100 se agotan, el número de fundador deja de existir. La membresía sigue abierta — el número, no.</p>
+    <div class="cta-btns">
+        <button class="btn btn-white" onclick="openModal('fundador')">Quiero ser fundador →</button>
+        <button class="btn btn-outline-white" onclick="openModal('mensual')">Solo la membresía</button>
     </div>
-  </div>
-</section>
+</div>
 
-<!-- PASOS -->
-<section class="section">
-  <p class="section-title">¿Cómo me uno?</p>
-  <p class="section-sub">Simple y rápido, en 3 pasos</p>
-  <div class="steps-wrap">
-    <div class="step">
-      <div class="step-num">1</div>
-      <div>
-        <div class="step-title">Elegí tu plan</div>
-        <div class="step-desc">Mensual o anual fundador. Si querés ser el socio fundador, asegurate antes de que se agoten los 100 cupos disponibles.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">2</div>
-      <div>
-        <div class="step-title">Pagá con Tpago</div>
-        <div class="step-desc">Proceso de pago rápido y seguro con Tpago (Bancard). Recibirás la confirmación de tu pago de inmediato.</div>
-      </div>
-    </div>
-    <div class="step">
-      <div class="step-num">3</div>
-      <div>
-        <div class="step-title">Bienvenido al club</div>
-        <div class="step-desc">Te llega la confirmación por WhatsApp con el link de acceso al grupo exclusivo y tus beneficios activados.</div>
-      </div>
-    </div>
-  </div>
-</section>
+<!-- FOOTER -->
 
-<!-- fUNCION PERSONALIZADA -->
-<script>
-  // CONFIGURACIÓN INICIAL
-  const WEBHOOK_URL = "https://hook.us2.make.com/xnykj4clsa2cy96ogrsbkfun3sytz6b9"; 
-  const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR6h-u_HC1jQLdkJGrePYuZWz-457uSve9Y9yNyY1ag3gi3rsvDPXCfJyK4DrQ_P5AuFFKHXYwg2rb5/pub?output=csv";
-  const LINKS_TPAGO = {
-      "Mensual": "https://www.tpago.com.py/links?alias=PBXKD61537&commerce_branch_name=EN SUS MARCAS&reference_id=1002",
-      "Anual": "https://www.tpago.com.py/links?alias=PFAXC92576&commerce_branch_name=EN SUS MARCAS&reference_id=1001"
-  };
+<footer>
+    <div class="foot-logo"><span class="e">e</span><span class="s">s</span><span class="m">m</span></div>
+    <div class="foot-tag">De Corredores para Corredores · © 2026</div>
+    <a href="https://ensusmarcas.com.py" class="foot-link">ensusmarcas.com.py →</a>
+</footer>
 
-  // 1. FUNCIÓN PARA ABRIR EL MODAL
-  function abrirRegistro(plan) {
-      document.getElementById('selectedPlan').value = plan;
-      document.getElementById('registrationModal').style.display = 'flex';
-  }
+<!-- MODAL -->
 
-  // 2. FUNCIÓN ASÍNCRONA PARA ACTUALIZAR CUPOS EN TIEMPO REAL
-  async function actualizarCupos() {
-    try {
-        const respuesta = await fetch(CSV_URL);
-        const texto = await respuesta.text();
-        const filas = texto.trim().split("\n").map(f => f.split(",")); 
+<div class="modal-ov" id="modal" onclick="closeOut(event)">
+    <div class="modal">
+        <button class="modal-x" onclick="closeModal()">✕</button>
+        <div class="modal-eye" id="m-eye">Plan Mensual</div>
+        <div class="modal-ttl" id="m-ttl">¡Ya casi sos socio!</div>
+        <div class="modal-prc" id="m-prc">-</div>
         
-        // Buscamos el índice de la columna "Estado" (asumiendo que es la G, índice 6)
-        // Y filtramos solo las filas que tengan "Confirmado" o "Completado"
-        const sociosPagados = filas.filter(col => {
-            const estado = col[6] ? col[7].trim() : ""; 
-            return estado === "Confirmado" || estado === "Completado";
-        }).length;
+        <form id="formSocio">
+            <input type="hidden" id="selectedPlan">
+            <div class="fg"><label class="fl">Cédula de Identidad</label><input type="number" id="userCedula" class="fi" placeholder="Sin puntos ni guiones" required></div>
+            <div class="fg"><label class="fl">Nombre completo</label><input type="text" id="userName" class="fi" placeholder="Tu nombre" required></div>
+            <div class="fg"><label class="fl">WhatsApp</label><input type="tel" id="userPhone" class="fi" placeholder="09XX XXX XXX" required></div>
+            <div class="fg"><label class="fl">Email</label><input type="email" id="userEmail" class="fi" placeholder="tu@email.com" required></div>
+            <button type="submit" class="modal-btn" id="m-btn">Ir a pagar con Tpago →</button>
+        </form>
+        <div class="modal-note">🔒 Pago seguro · Bancard · Confirmación por WhatsApp</div>
+    </div>
+</div>
 
-        const cuposRestantes = 100 - sociosPagados;
+<script>
+const WEBHOOK_URL = "https://hook.us2.make.com/xnykj4clsa2cy96ogrsbkfun3sytz6b9"; 
+const CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vR6h-u_HC1jQLdkJGrePYuZWz-457uSve9Y9yNyY1ag3gi3rsvDPXCfJyK4DrQ_P5AuFFKHXYwg2rb5/pub?output=csv";
 
-        // Actualizar HTML
-        document.getElementById('contador').innerText = sociosPagados;
+const LINKS_TPAGO = {
+    mensual: "https://www.tpago.com.py/links?alias=PBXKD61537&commerce_branch_name=EN SUS MARCAS&reference_id=1002",
+    anual: "TU_LINK_ANUAL_480K",
+    fundador_early: "https://www.tpago.com.py/links?alias=PFAXC92576&commerce_branch_name=EN SUS MARCAS&reference_id=1001",
+    fundador_regular: "TU_LINK_FUNDADOR_1100K"
+};
+
+// Variables globales para los conteos
+let totalRegistrosFundadores = 0;
+let totalRegistrosNormales = 0;
+let sociosFundadoresConfirmados = 0;
+let sociosNormalesConfirmados = 0;
+
+async function actualizarCupos() {
+    try {
+        const res = await fetch(CSV_URL + '?v=' + new Date().getTime());
+        const text = await res.text();
+        const rows = text.trim().split("\n").map(r => r.split(","));
+        
+        // 1. Conteo de los que ya pagaron (Columna H == "Confirmado")
+        const confirmados = rows.filter(col => col[7] && col[7].trim() === "Confirmado");
+        
+        // Separamos por tipo para saber cuántos fundadores reales hay
+        const fundadoresConfirmados = confirmados.filter(c => c[6].toLowerCase().includes('fundador')).length;
+        const normalesConfirmados = confirmados.filter(c => !c[6].toLowerCase().includes('fundador')).length;
+
+        // 2. ACTUALIZACIÓN DE TU HTML:
+        
+        // "Socios actuales" = Todos los que pagaron (Fundadores + Normales)
+        document.getElementById('contador').innerText = fundadoresConfirmados + normalesConfirmados;
+
+        // "Cupos Fundador" = Los 100 iniciales menos los que ya pagaron
+        const cuposRestantes = 100 - fundadoresConfirmados;
         document.getElementById('cupos').innerText = cuposRestantes > 0 ? cuposRestantes : 0;
-        document.getElementById('barraProgreso').style.width = sociosPagados + '%';
 
-        // Si llegamos a 100, cambiar mensaje
-        if (cuposRestantes <= 0) {
-            document.querySelector('.counter-msg').innerHTML = "¡Cupos de fundador<br><strong>AGOTADOS</strong>!";
-        }
-    } catch (error) {
-        console.error("Error:", error);
+        // (Opcional) Guardamos los totales globales para el resto del script
+        totalRegistrosFundadores = rows.filter(col => col[4] && col[6].toLowerCase().includes('fundador')).length;
+        totalRegistrosNormales = rows.filter(col => col[4] && !col[6].toLowerCase().includes('fundador')).length;
+        sociosFundadoresConfirmados = fundadoresConfirmados;
+
+    } catch(e) { 
+        console.error("Error actualizando stats:", e);
+        // Valores por defecto en caso de error de conexión
+        document.getElementById('contador').innerText = "0";
+        document.getElementById('cupos').innerText = "100";
     }
 }
 
-  // 3. LOGICA DEL FORMULARIO (ENVÍO A MAKE + REDIRECCIÓN)
-  document.getElementById('formSocio').addEventListener('submit', async (e) => {
-      e.preventDefault();
-      const btn = document.getElementById('btnSubmit');
-      
-      // Feedback visual
-      btn.innerText = "Procesando...";
-      btn.disabled = true;
+const plans = {
+    mensual:  { eye:'Plan Mensual', ttl:'¡Ya casi sos socio!', prc:'₲ 50.000 / mes · renovación automática', btnC:'blue' },
+    anual:    { eye:'Plan Anual · Mejor valor', ttl:'¡Ya casi sos socio!', prc:'₲ 480.000 / año · equivale a ₲ 40.000/mes', btnC:'blue' },
+    fundador: { eye:'Socio Fundador · Cupos limitados', eyeC:'gold', ttl:'¡Ya casi sos socio fundador!', prc:'-', btnC:'yellow' }
+};
 
-      const datos = {
-          cedula: document.getElementById('cedulaPersona').value,
-          nombre: document.getElementById('userName').value,
-          whatsapp: document.getElementById('userPhone').value,
-          email: document.getElementById('userEmail').value,
-          plan: document.getElementById('selectedPlan').value,
-          fecha: new Date().toISOString()
-      };
+function openModal(p) {
+    const d = plans[p];
+    let proximoDorsal;
 
-      try {
-          // Enviar a Make
-          await fetch(WEBHOOK_URL, {
-              method: 'POST',
-              mode: 'no-cors', // Importante para evitar bloqueos de CORS en algunos navegadores
-              body: JSON.stringify(datos),
-              headers: { 'Content-Type': 'application/json' }
-          });
-          
-          // Redirigir a la pasarela de Tpago
-          window.location.href = LINKS_TPAGO[datos.plan];
-      } catch (error) {
-          console.error("Error al registrar:", error);
-          alert("Hubo un problema al conectar. Por favor, intenta de nuevo.");
-          btn.disabled = false;
-          btn.innerText = "Ir a pagar con Tpago";
-      }
-      // Actualiza los cupos automáticamente cada 30 segundos
-      setInterval(actualizarCupos, 30000);
-  });
+    if (p === 'fundador') {
+        proximoDorsal = totalRegistrosFundadores + 1;
+        document.getElementById('m-ttl').textContent = `Reservando Dorsal Histórico: #${proximoDorsal}`;
+        
+        // El precio depende solo de los que YA PAGARON (Confirmados)
+        const precio = (sociosFundadoresConfirmados < 30) ? '₲ 900.000' : '₲ 1.100.000';
+        document.getElementById('m-prc').textContent = precio;
+    } else {
+        proximoDorsal = 101 + totalRegistrosNormales;
+        document.getElementById('m-ttl').textContent = `Tu número de socio será el #${proximoDorsal}`;
+        document.getElementById('m-prc').textContent = d.prc;
+    }
 
+    document.getElementById('selectedPlan').value = p;
+    document.getElementById('m-eye').textContent = d.eye;
+    document.getElementById('m-btn').className = 'modal-btn ' + d.btnC;
+    
+    // Guardamos el número calculado para enviarlo luego en el submit
+    window.currentDorsalCalculado = proximoDorsal; 
 
+    document.getElementById('modal').classList.add('on');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() { document.getElementById('modal').classList.remove('on'); document.body.style.overflow = ''; }
+function closeOut(e) { if (e.target.id === 'modal') closeModal(); }
+
+document.getElementById('formSocio').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('m-btn');
+    const plan = document.getElementById('selectedPlan').value;
+    
+    // 1. LÓGICA DE DORSAL (Basada en TOTAL de registros para evitar duplicados)
+    // Usamos el número que ya calculamos y guardamos al abrir el modal
+    const dorsalAsignado = window.currentDorsalCalculado;
+
+    // 2. LÓGICA DE PRECIO/TIPO (Basada solo en CONFIRMADOS)
+    let tipoFundador = 'No';
+    if (plan === 'fundador') {
+        tipoFundador = (sociosFundadoresConfirmados < 30) ? 'Early' : 'Regular';
+    }
+
+    btn.innerText = "Procesando..."; 
+    btn.disabled = true;
+
+    const datos = {
+        cedula: document.getElementById('userCedula').value,
+        nombre: document.getElementById('userName').value,
+        whatsapp: document.getElementById('userPhone').value,
+        email: document.getElementById('userEmail').value,
+        plan: plan,
+        dorsal: dorsalAsignado, // Este será tu ID en la Columna A
+        esFundador: tipoFundador
+    };
+
+    try {
+        // 1. Enviamos a Make (Se cargará como 'Pendiente' por defecto)
+        await fetch(WEBHOOK_URL, { 
+            method: 'POST', 
+            mode: 'no-cors', 
+            body: JSON.stringify(datos) 
+        });
+
+        // 2. Determinamos el link de pago correcto (Basado en confirmados)
+        let linkFinal;
+        if (plan === 'fundador') {
+            linkFinal = (sociosFundadoresConfirmados < 30) 
+                ? LINKS_TPAGO.fundador_early 
+                : LINKS_TPAGO.fundador_regular;
+        } else {
+            linkFinal = LINKS_TPAGO[plan];
+        }
+
+        // 3. Redirección a Tpago
+        window.location.href = linkFinal;
+
+    } catch (err) {
+        console.error("Error en el envío:", err);
+        alert("Hubo un error al procesar tu solicitud. Por favor, intentá de nuevo.");
+        btn.disabled = false; 
+        btn.innerText = "Ir a pagar con Tpago →";
+    }
+});
+
+actualizarCupos();
 </script>
-
-<!-- CTA -->
-<section class="cta-footer">
-  <h2>¿Listo para correr con nosotros?</h2>
-  <p>Quedan pocos cupos de fundador. No te lo pierdas.</p>
-  <button onclick="abrirRegistro('Anual')" class="btn-cta btn-outline">Quiero ser socio fundador</button>
-</section>
-
-  
-
-<!-- FOOTER -->
-<footer class="footer">
-  <p>Club ESM · <a href="https://ensusmarcas.com.py">ensusmarcas.com.py</a> · Paraguay</p>
-  <p>© 2026 En Sus Marcas. Todos los derechos reservados.</p>
-  <p class="footer-dev">Desarrollado por ESM</p>
-</footer>
 
 </body>
 </html>
