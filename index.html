@@ -420,33 +420,20 @@ let totalRegistrosNormales = 0;
 let sociosFundadoresConfirmados = 0;
 let sociosNormalesConfirmados = 0;
 
+// Ahora solo nos importan los confirmados para el conteo de la web
 async function actualizarCupos() {
     try {
         const res = await fetch(CSV_URL + '?v=' + new Date().getTime());
         const text = await res.text();
         const rows = text.trim().split("\n").map(r => r.split(","));
         
-        // 1. Conteo de los que ya pagaron (Columna H == "Confirmado")
         const confirmados = rows.filter(col => col[7] && col[7].trim() === "Confirmado");
         
-        // Separamos por tipo para saber cuántos fundadores reales hay
-        const fundadoresConfirmados = confirmados.filter(c => c[6].toLowerCase().includes('fundador')).length;
-        const normalesConfirmados = confirmados.filter(c => !c[6].toLowerCase().includes('fundador')).length;
+        sociosFundadoresConfirmados = confirmados.filter(c => c[6].toLowerCase().includes('fundador')).length;
+        sociosNormalesConfirmados = confirmados.filter(c => !c[6].toLowerCase().includes('fundador')).length;
 
-        // 2. ACTUALIZACIÓN DE TU HTML:
-        
-        // "Socios actuales" = Todos los que pagaron (Fundadores + Normales)
-        document.getElementById('contador').innerText = "+" fundadoresConfirmados + normalesConfirmados;
-
-        // "Cupos Fundador" = Los 100 iniciales menos los que ya pagaron
-        const cuposRestantes = 100 - fundadoresConfirmados;
-        document.getElementById('cupos').innerText = cuposRestantes > 0 ? cuposRestantes : 0;
-
-        // (Opcional) Guardamos los totales globales para el resto del script
-        totalRegistrosFundadores = rows.filter(col => col[4] && col[6].toLowerCase().includes('fundador')).length;
-        totalRegistrosNormales = rows.filter(col => col[4] && !col[6].toLowerCase().includes('fundador')).length;
-        sociosFundadoresConfirmados = fundadoresConfirmados;
-
+        document.getElementById('contador').innerText = sociosFundadoresConfirmados + sociosNormalesConfirmados;
+        document.getElementById('cupos').innerText = 100 - sociosFundadoresConfirmados;
     } catch(e) { 
         console.error("Error actualizando stats:", e);
         // Valores por defecto en caso de error de conexión
@@ -466,15 +453,14 @@ function openModal(p) {
     let proximoDorsal;
 
     if (p === 'fundador') {
-        proximoDorsal = totalRegistrosFundadores + 1;
-        document.getElementById('m-ttl').textContent = `Reservando Dorsal Histórico: #${proximoDorsal}`;
-        
-        // El precio depende solo de los que YA PAGARON (Confirmados)
+        // El número que ve es el siguiente según los que ya PAGARON
+        proximoDorsal = sociosFundadoresConfirmados + 1;
+        document.getElementById('m-ttl').textContent = `Convertite en el Socio Fundador #${proximoDorsal}`;
         const precio = (sociosFundadoresConfirmados < 30) ? '₲ 900.000' : '₲ 1.100.000';
         document.getElementById('m-prc').textContent = precio;
     } else {
-        proximoDorsal = 101 + totalRegistrosNormales;
-        document.getElementById('m-ttl').textContent = `Tu número de socio será el #${proximoDorsal}`;
+        proximoDorsal = 101 + sociosNormalesConfirmados;
+        document.getElementById('m-ttl').textContent = `Serás el Socio #${proximoDorsal}`;
         document.getElementById('m-prc').textContent = d.prc;
     }
 
