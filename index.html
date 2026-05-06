@@ -423,22 +423,38 @@ let sociosNormalesConfirmados = 0;
 // Ahora solo nos importan los confirmados para el conteo de la web
 async function actualizarCupos() {
     try {
-        const res = await fetch(CSV_URL + '?v=' + new Date().getTime());
+        // Forzamos la actualización del CSV con un timestamp
+        const res = await fetch(CSV_URL + '&v=' + new Date().getTime());
         const text = await res.text();
+        
+        // Convertimos el texto en filas y columnas
         const rows = text.trim().split("\n").map(r => r.split(","));
         
-        const confirmados = rows.filter(col => col[7] && col[7].trim() === "Confirmado");
-        
-        sociosFundadoresConfirmados = confirmados.filter(c => c[6].toLowerCase().includes('fundador')).length;
-        sociosNormalesConfirmados = confirmados.filter(c => !c[6].toLowerCase().includes('fundador')).length;
+        // Saltamos la fila de encabezados
+        const dataRows = rows.slice(1);
 
-        document.getElementById('contador').innerText = sociosFundadoresConfirmados + sociosNormalesConfirmados;
-        document.getElementById('cupos').innerText = 100 - sociosFundadoresConfirmados;
+        // 1. FILTRO DE CONFIRMADOS (Columna H = Índice 7)
+        const confirmados = dataRows.filter(col => {const estado = col[7] ? col[7].trim().toLowerCase() : "";
+            return estado === "confirmado";
+        });
+        
+        // 2. CONTEO POR PLAN (Columna G = Índice 6)
+        sociosFundadoresConfirmados = confirmados.filter(c => c[6] && c[6].toLowerCase().includes('fundador')).length;
+        
+        sociosNormalesConfirmados = confirmados.filter(c => c[6] && !c[6].toLowerCase().includes('fundador')).length;
+
+        // 3. ACTUALIZACIÓN DE LA WEB
+        const totalSocios = sociosFundadoresConfirmados + sociosNormalesConfirmados;
+        
+        // "Socios actuales"
+        document.getElementById('contador').innerText = totalSocios > 0 ? "+" + totalSocios : "0";
+        
+        // "Cupos Fundador" (de 100 disponibles)
+        const cuposRestantes = 100 - sociosFundadoresConfirmados;
+        document.getElementById('cupos').innerText = cuposRestantes < 0 ? 0 : cuposRestantes;
+
     } catch(e) { 
-        console.error("Error actualizando stats:", e);
-        // Valores por defecto en caso de error de conexión
-        document.getElementById('contador').innerText = "0";
-        document.getElementById('cupos').innerText = "100";
+        console.error("Error al leer el CSV:", e); 
     }
 }
 
