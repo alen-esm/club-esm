@@ -535,8 +535,8 @@ document.getElementById('formSocio').addEventListener('submit', async (e) => {
         plan: plan,
         dorsal: dorsalAsignado, // Este será tu ID en la Columna A
         esFundador: tipoFundador,
-        monto: (plan === 'fundador' && dorsalAsignado <= 30) ? 900.000 : 
-           (plan === 'fundador') ? 1.100.000 : 50.000
+        monto: (plan === 'fundador' && dorsalAsignado <= 30) ? 900000 : 
+           (plan === 'fundador') ? 1100000 : 50000
     };
 
     try {
