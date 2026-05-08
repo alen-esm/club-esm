@@ -497,6 +497,7 @@ function openModal(p) {
 
     document.getElementById('selectedPlan').value = p;
     document.getElementById('m-eye').textContent = d.eye;
+    document.getElementById('m-eye').className = 'modal-eye ' + d.eyeC;
     document.getElementById('m-btn').className = 'modal-btn ' + d.btnC;
     
     // Guardamos el número calculado para enviarlo luego en el submit
