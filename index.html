@@ -1089,7 +1089,7 @@
   <h1>De corredores,<br><em>para corredores.</em></h1>
   <p class="hero-sub">Una membresía construida desde adentro. Descuentos en marcas, carreras juntos y acceso prioritario a todos los eventos ESM.</p>
   <div class="hero-actions">
-    <button class="btn-primary" onclick="openModal('Fundador', '₲ 900.000', true)" style="cursor: pointer; border: none;">
+    <button class="btn-primary" onclick="openModal('fundador', '₲ 900.000 / ₲ 1.100.000', true)" style="cursor: pointer; border: none;">
       Ser socio fundador
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
@@ -1195,7 +1195,7 @@
       <div class="section-label">Solo 100 cupos</div>
       <h2 class="section-title">Ser socio fundador no es un plan.<br><em>Es una decisión.</em></h2>
       <p>Los primeros 100 socios de la historia del Club ESM. Cuando se agoten estos cupos, el socio fundador deja de existir. Para siempre.</p>
-      <button class="btn-primary" onclick="openModal('Fundador', '₲s 900.000', true)">
+      <button class="btn-primary" onclick="openModal('fundador_early', '₲s 900.000', true)">
         Quiero ser fundador
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
@@ -1218,7 +1218,7 @@
           <li class="exclusive">Reconocimiento en palco y ceremonia Triple Crown</li>
           <li class="exclusive">Acceso exclusivo a pre-lanzamientos ESM</li>
         </ul>
-        <button class="plan-cta plan-cta-solid" onclick="openModal('Fundador Early Bird (01–30)', '₲ 900.000 · Pago único', true)">Asegurar mi lugar</button>
+        <button class="plan-cta plan-cta-solid" onclick="openModal('fundador_early', '₲ 900.000', true)">Asegurar mi lugar</button>
       </div>
 
       <div class="founder-card fade-up" style="transition-delay: 0.1s">
@@ -1234,7 +1234,7 @@
           <li>Acceso prioritario a inscripciones ESM</li>
           <li>Reconocimiento como fundador en web y resultados</li>
         </ul>
-        <button class="plan-cta plan-cta-outline" onclick="openModal('Fundador (31–100)', '₲ 1.100.000 · Pago único', true)">Asegurar mi lugar</button>
+        <button class="plan-cta plan-cta-outline" onclick="openModal('fundador_regular', '₲ 1.100.000', true)">Asegurar mi lugar</button>
       </div>
     </div>
   </div>
@@ -1354,10 +1354,19 @@
 </div>
 
 <script>
+  // Configuración de Links de Tpago por defecto (Se usarán como respaldo si n8n no responde)
+  const LINKS_TPAGO = {
+    "mensual": "https://www.bancard.com.py/link_de_tpago_mensual",
+    "anual": "https://www.bancard.com.py/link_de_tpago_anual",
+    "fundador": "https://www.bancard.com.py/link_de_tpago_900k", // Botón general del Hero (Por defecto asume Early)
+    "fundador_early": "https://www.bancard.com.py/link_de_tpago_900k", // Tarjeta Early Bird
+    "fundador_regular": "https://www.bancard.com.py/link_de_tpago_1100k" // Tarjeta Cupos 31-100
+  };
+
   // Variables globales para almacenar los datos del plan activo
   let planSeleccionado = '';
   let precioSeleccionado = '';
-  let esFundadorSeleccionado = false; // <-- Nueva variable global
+  let esFundadorSeleccionado = false;
 
   // Modal
   function openModal(plan, price, esFundador = false) {
@@ -1382,34 +1391,30 @@
 
   // Conexión al Webhook
   function enviarAlWebhook() {
-    // URL de tu Webhook
-    const webhookUrl = 'https://automatiza.alen-dev.com/webhook-test/649c73a5-4620-4e34-b790-5be888f92254';
+    const webhookUrl = 'https://automatiza.alen-dev.com/webhook/649c73a5-4620-4e34-b790-5be888f92254';
 
-    // Capturar de forma exacta los inputs por su orden en el formulario
-    const inputs = document.querySelectorAll('.modal .form-input');
-    const cedula = inputs[0].value.trim();
-    const nombre = inputs[1].value.trim();
+    // Capturar inputs
+    const inputs = document.querySelectorAll('.modal-card .form-input');
+    const nombre = inputs[0].value.trim();
+    const cedula = inputs[1].value.trim();
     const whatsapp = inputs[2].value.trim();
     const email = inputs[3].value.trim();
     const boton = document.getElementById('btn-submit-form');
 
-    // Validación básica para asegurar que completen los campos indispensables
     if (!cedula || !nombre || !whatsapp) {
       alert('Por favor, completa los campos de Cédula, Nombre y WhatsApp.');
       return;
     }
 
-    // Cambiar estado del botón mientras procesa
     boton.innerText = 'Procesando...';
     boton.disabled = true;
 
-    // Limpiar el precio para enviar solo el monto numérico limpio
+    // Limpiar el precio original para enviar solo número limpio
     const precioLimpio = parseInt(precioSeleccionado.replace(/[^0-9]/g, ''), 10) || 0;
 
-    // Crear el objeto de datos estructurado
     const datosEnvio = {
       plan: planSeleccionado,
-      precio: precioLimpio, // Ahora envía solo el número limpio (ej: 50000)
+      precio: precioLimpio,
       es_fundador: esFundadorSeleccionado,
       cedula: cedula,
       nombre: nombre,
@@ -1418,20 +1423,37 @@
       fecha_inscripcion: new Date().toISOString()
     };
 
-    // Petición HTTP POST al Webhook
     fetch(webhookUrl, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(datosEnvio)
     })
-    .then(response => {
+    .then(async response => {
       if (response.ok) {
+        // Alerta que confirma el éxito
         alert('Inscripción registrada con éxito. Nos comunicaremos por WhatsApp.');
+        
         closeModal();
-        // Limpiar formulario
         inputs.forEach(input => input.value = '');
+
+        // Link de Tpago por defecto (Respaldo en el HTML)
+        let linkRedireccion = LINKS_TPAGO[planSeleccionado] || LINKS_TPAGO.mensual;
+
+        try {
+          // Intentamos leer la respuesta de tu automatización n8n
+          const respuestaServidor = await response.json();
+          
+          // ¡SI N8N LEYÓ EL SHEETS Y TE DEVOLVIÓ EL LINK EXACTO, LO USA AUTOMÁTICAMENTE!
+          if (respuestaServidor && respuestaServidor.link_tpago) {
+            linkRedireccion = respuestaServidor.link_tpago;
+          }
+        } catch(e) {
+          console.log("n8n no retornó un JSON, se usará el link directo del HTML.");
+        }
+
+        // Redirección final a la pasarela de Bancard
+        window.location.href = linkRedireccion;
+
       } else {
         alert('Hubo un error al procesar el registro. Inténtalo de nuevo.');
       }
@@ -1441,7 +1463,6 @@
       alert('Error de conexión con el servidor.');
     })
     .finally(() => {
-      // Restaurar el botón original
       boton.innerText = 'Ir a pagar con Tpago →';
       boton.disabled = false;
     });
