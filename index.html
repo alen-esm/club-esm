@@ -85,9 +85,8 @@
   }
 
   .nav-cta:hover {
-    background: var(--gold) !important;
+    background: var(--gold);
     color: var(--black) !important;
-    opacity: 1 !important;
   }
 
   /* HERO */
@@ -95,8 +94,8 @@
     min-height: 100vh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-end;
-    padding: 0 60px 100px;
+    justify-content: center;
+    padding: 0 60px;
     position: relative;
     overflow: hidden;
   }
@@ -131,20 +130,6 @@
         rgba(200,169,110,0.03) 60px,
         rgba(200,169,110,0.03) 61px
       );
-  }
-
-  .hero-number {
-    position: absolute;
-    right: 8%;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(180px, 22vw, 340px);
-    font-weight: 300;
-    color: rgba(200,169,110,0.07);
-    line-height: 1;
-    user-select: none;
-    letter-spacing: -0.05em;
   }
 
   .hero-tag {
@@ -230,46 +215,47 @@
 
   .btn-ghost:hover { color: var(--white); }
 
-  .hero-stats {
-    position: absolute;
-    right: 60px;
-    bottom: 100px;
-    display: flex;
-    gap: 60px;
-  }
-
-  .stat {
-    text-align: center;
-  }
-
-  .stat-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 42px;
-    font-weight: 300;
-    color: var(--gold);
-    line-height: 1;
-    display: block;
-  }
-
-  .stat-label {
-    font-size: 9px;
-    letter-spacing: 0.25em;
+  /* SECTION LABELS & TITLES */
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 0.3em;
     text-transform: uppercase;
-    color: rgba(245,242,237,0.4);
-    margin-top: 8px;
+    color: var(--gold);
+    margin-bottom: 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .section-label::before {
+    content: '';
     display: block;
+    width: 30px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    color: var(--white);
   }
 
   /* DIVIDER */
   .divider {
     width: 100%;
     height: 1px;
-    background: linear-gradient(to right, transparent, rgba(200,169,110,0.3), transparent);
-    margin: 0;
+    background: linear-gradient(to right, transparent, rgba(200,169,110,0.2), transparent);
   }
 
   /* PLANES */
-  .plans-section { background: var(--black); }
+  .plans-section {
+    padding: 140px 60px;
+    background: var(--black);
+  }
 
   .plans-intro {
     display: grid;
@@ -289,7 +275,7 @@
   .plans-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2px;
+    gap: 24px;
   }
 
   .plan-card {
@@ -300,19 +286,15 @@
     border: 1px solid rgba(200,169,110,0.06);
   }
 
-  .plan-card:hover {
-    background: #1f1f1f;
-  }
+  .plan-card:hover { background: #141414; }
 
   .plan-card.featured {
-    background: #141414;
     border-color: rgba(200,169,110,0.15);
   }
 
   .plan-badge {
     position: absolute;
-    top: 28px;
-    right: 28px;
+    top: 28px; right: 28px;
     font-size: 9px;
     letter-spacing: 0.25em;
     text-transform: uppercase;
@@ -368,15 +350,12 @@
     display: flex;
     align-items: flex-start;
     gap: 12px;
-    line-height: 1.5;
   }
 
   .plan-features li::before {
     content: '—';
     color: var(--gold-dark);
     flex-shrink: 0;
-    font-size: 12px;
-    margin-top: 2px;
   }
 
   .plan-cta {
@@ -410,9 +389,7 @@
     color: var(--black);
   }
 
-  .plan-cta-solid:hover {
-    background: var(--gold-light);
-  }
+  .plan-cta-solid:hover { background: var(--gold-light); }
 
   /* FUNDADOR */
   .founder-section {
@@ -437,10 +414,6 @@
     z-index: 1;
   }
 
-  .founder-content .section-title {
-    margin-bottom: 28px;
-  }
-
   .founder-content p {
     font-size: 14px;
     color: rgba(245,242,237,0.5);
@@ -451,19 +424,13 @@
   .founder-cards {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 24px;
   }
 
   .founder-card {
     background: var(--gray);
     padding: 40px;
     border: 1px solid rgba(200,169,110,0.06);
-    position: relative;
-    transition: border-color 0.4s;
-  }
-
-  .founder-card:hover {
-    border-color: rgba(200,169,110,0.2);
   }
 
   .founder-card-header {
@@ -505,7 +472,6 @@
 
   .founder-features {
     list-style: none;
-    margin-bottom: 36px;
   }
 
   .founder-features li {
@@ -516,100 +482,12 @@
     align-items: flex-start;
     gap: 10px;
     border-bottom: 1px solid rgba(255,255,255,0.04);
-    line-height: 1.5;
   }
 
   .founder-features li::before {
     content: '—';
     color: var(--gold-dark);
     flex-shrink: 0;
-  }
-
-  /* DORSAL */
-  .dorsal-section {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-    min-height: 400px;
-  }
-
-  .dorsal-content {
-    background: var(--gray);
-    padding: 100px 80px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    border: 1px solid rgba(200,169,110,0.06);
-  }
-
-  .dorsal-visual {
-    background: #0d0d0d;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    min-height: 400px;
-  }
-
-  .dorsal-visual::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(
-      0deg, transparent, transparent 40px, rgba(200,169,110,0.03) 40px, rgba(200,169,110,0.03) 41px
-    ), repeating-linear-gradient(
-      90deg, transparent, transparent 40px, rgba(200,169,110,0.03) 40px, rgba(200,169,110,0.03) 41px
-    );
-  }
-
-  .dorsal-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 220px;
-    font-weight: 300;
-    color: rgba(200,169,110,0.12);
-    position: absolute;
-    line-height: 1;
-    user-select: none;
-  }
-
-  .dorsal-badge {
-    position: relative;
-    z-index: 1;
-    width: 160px;
-    height: 200px;
-    background: var(--white);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
-    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
-  }
-
-  .dorsal-badge-logo {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 12px;
-    font-weight: 600;
-    letter-spacing: 0.3em;
-    color: var(--black);
-    text-transform: uppercase;
-  }
-
-  .dorsal-badge-number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 72px;
-    font-weight: 300;
-    color: var(--black);
-    line-height: 1;
-  }
-
-  .dorsal-badge-label {
-    font-size: 8px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: rgba(10,10,10,0.5);
   }
 
   /* MODAL */
@@ -681,7 +559,32 @@
     font-family: 'Cormorant Garamond', serif;
     font-size: 24px;
     color: var(--gold-light);
-    margin-bottom: 36px;
+    margin-bottom: 24px;
+  }
+
+  /* NUEVO DISEÑO PREMIUM PARA EL DORSAL DENTRO DEL FORMULARIO */
+  .modal-dorsal-box {
+    background: #111;
+    border: 1px dashed rgba(200, 169, 110, 0.3);
+    padding: 12px 16px;
+    margin-bottom: 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .modal-dorsal-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--gray-text);
+  }
+
+  .modal-dorsal-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--gold);
   }
 
   .form-group {
@@ -727,7 +630,7 @@
     text-transform: uppercase;
     cursor: pointer;
     transition: background 0.3s;
-    margin-top: 36px;
+    margin-top: 32px;
     margin-bottom: 16px;
   }
 
@@ -743,14 +646,12 @@
   @media(max-width: 968px) {
     nav { padding: 20px 24px; }
     .nav-links { display: none; }
-    .hero { padding: 0 24px 60px; }
+    .hero { padding: 0 24px; }
     .hero-track { width: 100%; opacity: 0.15; clip-path: none; }
-    .hero-stats { position: static; margin-top: 60px; gap: 40px; }
     section { padding: 80px 24px; }
     .plans-intro { grid-template-columns: 1fr; gap: 24px; }
     .plans-grid { grid-template-columns: 1fr; gap: 24px; }
     .founder-grid { grid-template-columns: 1fr; gap: 60px; }
-    .dorsal-section { grid-template-columns: 1fr; }
     .modal-card { padding: 32px 24px; }
   }
 </style>
@@ -768,9 +669,7 @@
 
 <div class="hero">
   <div class="hero-bg"></div>
-  <div class="hero-track">
-    <div class="hero-number" id="heroDorsalDisplay">—</div>
-  </div>
+  <div class="hero-track"></div>
   
   <div style="position: relative; z-index: 2;">
     <div class="hero-tag">Membresía Exclusiva</div>
@@ -778,22 +677,8 @@
     <p class="hero-sub">Un espacio diseñado para corredores que buscan superar sus límites con un sistema de beneficios premium y comunidad selecta.</p>
     
     <div class="hero-actions">
-      <a href="#planes" class="btn-primary">
-        Adquirir Membresía
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-      </a>
+      <a href="#planes" class="btn-primary">Adquirir Membresía</a>
       <a href="#fundador" class="btn-ghost">Ver beneficios exclusivos</a>
-    </div>
-  </div>
-
-  <div class="hero-stats">
-    <div class="stat">
-      <span class="stat-num" id="statConfirmados">—</span>
-      <span class="stat-label">Socios Activos</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num" id="statSiguienteDorsal">—</span>
-      <span class="stat-label">Tu Dorsal Asignado</span>
     </div>
   </div>
 </div>
@@ -844,12 +729,12 @@
     <div class="founder-content">
       <div class="section-label" style="color: var(--gold-light);">Edición Limitada</div>
       <h2 class="section-title">Socio Fundador</h2>
-      <p>Una oportunidad única reservada para los primeros miembros del club. Obtén beneficios vitalicios, indumentaria personalizada de elite y reconocimiento permanente en la historia de En Sus Marcas.</p>
-      <a href="#planes" class="btn-primary" onclick="openModal('fundador', 'Monto dinámico asignado')">Ser Socio Fundador</a>
+      <p style="margin-top: 24px;">Una oportunidad única reservada para los primeros miembros del club. Obtén beneficios vitalicios, indumentaria personalizada de elite y reconocimiento permanente en la historia de En Sus Marcas.</p>
+      <button class="btn-primary" style="margin-top: 24px;" onclick="openModal('fundador', '900.000 Gs / 1.100.000 Gs')">Ser Socio Fundador</button>
     </div>
 
     <div class="founder-cards">
-      <div class="founder-card" id="cardEarly">
+      <div class="founder-card">
         <div class="founder-card-header">
           <div class="founder-card-tag">Early Founder</div>
           <div class="founder-card-slots">Cupos 1 al 30</div>
@@ -857,13 +742,13 @@
         <div class="founder-card-price">900.000 <span>Gs</span></div>
         <div class="founder-card-sub">Pago único preferencial</div>
         <ul class="founder-features">
-          <li class="exclusive">Dorsal histórico personalizado de metal</li>
+          <li>Dorsal histórico personalizado de metal</li>
           <li>Camiseta Oficial de Competición con detalles en Oro</li>
           <li>Acceso a eventos VIP del club de por vida</li>
         </ul>
       </div>
 
-      <div class="founder-card" id="cardRegular">
+      <div class="founder-card">
         <div class="founder-card-header">
           <div class="founder-card-tag">Regular Founder</div>
           <div class="founder-card-slots">Cupos 31 al 100</div>
@@ -880,24 +765,6 @@
   </div>
 </section>
 
-<div class="divider"></div>
-
-<section class="dorsal-section">
-  <div class="dorsal-content">
-    <div class="section-label">Tu Identidad</div>
-    <h2 class="section-title" style="font-size: clamp(32px, 4vw, 48px); margin-bottom: 24px;">Tu número de dorsal único</h2>
-    <p style="font-size: 14px; color: rgba(245,242,237,0.5); line-height: 1.8;">Cada miembro del club posee un número de dorsal exclusivo y correlativo impreso en su perfil. Este número determina tu antigüedad y herencia en el Club ESM.</p>
-  </div>
-  <div class="dorsal-visual">
-    <div class="dorsal-num" id="bgDorsalDisplay">—</div>
-    <div class="dorsal-badge">
-      <div class="dorsal-badge-logo">ESM</div>
-      <div class="dorsal-badge-number" id="badgeDorsalDisplay">—</div>
-      <div class="dorsal-badge-label">Dorsal Socio</div>
-    </div>
-  </div>
-</section>
-
 <div class="modal-overlay" id="modal">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -905,90 +772,40 @@
     <h3 id="modal-title">Plan Seleccionado</h3>
     <div class="modal-price-display" id="modal-price">0 Gs</div>
 
+    <div class="modal-dorsal-box">
+      <span class="modal-dorsal-label">Tu Dorsal Reservado:</span>
+      <span class="modal-dorsal-value" id="modalDorsalDisplay">#--</span>
+    </div>
+
     <div class="form-group">
       <label class="form-label">Nombre Completo</label>
-      <input type="text" class="form-input" id="userName" placeholder="Ingresa tu nombre completo" required>
+      <input type="text" class="form-input" id="userName" placeholder="Ingresa tu nombre completo">
     </div>
     <div class="form-group">
       <label class="form-label">WhatsApp</label>
-      <input type="tel" class="form-input" id="userPhone" placeholder="+595 9xx xxx xxx" required>
+      <input type="tel" class="form-input" id="userPhone" placeholder="+595 9xx xxx xxx">
     </div>
     <div class="form-group">
       <label class="form-label">Email</label>
-      <input type="email" class="form-input" id="userEmail" placeholder="tu@email.com" required>
+      <input type="email" class="form-input" id="userEmail" placeholder="tu@email.com">
     </div>
 
-    <button class="modal-cta" onclick="procesarInscripcion()">Ir a pagar con Tpago →</button>
-    <div class="modal-secure">🔒 Pago seguro · Bancard · Confirmación por WhatsApp</div>
+    <button class="modal-cta" onclick="simularInscripcion()">Continuar al Pago →</button>
+    <div class="modal-secure">🔒 Entorno seguro para pruebas de interfaz</div>
   </div>
 </div>
 
 <script>
-  // CONFIGURACIÓN E INTEGRACIONES BACKEND EXTRAYENDO DE INDEX ANTERIOR
-  const WEBHOOK_URL = "https://hook.us4.make.com/npsa9v1btyrka9p8u3f17d7i3z9rxtvj";
-  const APISCRIPT_GET_URL = "https://script.google.com/macros/s/AKfycbwa6VvF7G6T1W5U9YpImsR5B6P1gCInN8P_zK3WwH0f9uUaYwXwO0u3199rscY7S89b/exec";
+  // Variable temporal local para pruebas visuales en esta fase (luego vendrá de Google Sheets)
+  let dorsalPrueba = 14; 
 
-  const LINKS_TPAGO = {
-      mensual: "https://www.bancard.com.py/tpago/v2/checkout/mensual-esm",
-      anual: "https://www.bancard.com.py/tpago/v2/checkout/anual-esm",
-      fundador_early: "https://www.bancard.com.py/tpago/v2/checkout/fundador-early-esm",
-      fundador_regular: "https://www.bancard.com.py/tpago/v2/checkout/fundador-regular-esm"
-  };
-
-  let planSeleccionado = '';
-  let sociosConfirmados = 0;
-  let sociosFundadoresConfirmados = 0;
-  let dorsalAsignado = 0;
-
-  // Carga inicial asíncrona de Dorsales y Contadores desde Google Sheets
-  async function cargarContadores() {
-      try {
-          const res = await fetch(APISCRIPT_GET_URL);
-          const data = await res.json();
-          
-          sociosConfirmados = parseInt(data.totalConfirmados) || 0;
-          sociosFundadoresConfirmados = parseInt(data.fundadoresConfirmados) || 0;
-          dorsalAsignado = sociosConfirmados + 1;
-
-          // Renderizado dinámico en el diseño premium
-          document.getElementById('statConfirmados').textContent = sociosConfirmados;
-          document.getElementById('statSiguienteDorsal').textContent = '#' + dorsalAsignado;
-          document.getElementById('heroDorsalDisplay').textContent = '#' + dorsalAsignado;
-          document.getElementById('bgDorsalDisplay').textContent = dorsalAsignado;
-          document.getElementById('badgeDorsalDisplay').textContent = dorsalAsignado;
-
-          // Resaltado de tarjeta de Socio Fundador activa basada en el contador real
-          if (sociosFundadoresConfirmados < 30) {
-              document.getElementById('cardEarly').style.borderColor = 'var(--gold)';
-              document.getElementById('cardRegular').style.opacity = '0.5';
-          } else {
-              document.getElementById('cardRegular').style.borderColor = 'var(--gold)';
-              document.getElementById('cardEarly').style.opacity = '0.5';
-          }
-      } catch (err) {
-          console.error("Error al sincronizar datos de Google Sheets:", err);
-          // Valores por defecto seguros si falla la API temporalmente
-          document.getElementById('statConfirmados').textContent = "—";
-          document.getElementById('statSiguienteDorsal').textContent = "Asignando...";
-      }
-  }
-
-  // Ejecutar carga de datos al abrir la página
-  window.addEventListener('DOMContentLoaded', cargarContadores);
-
-  // Manejo del Modal Premium
   function openModal(plan, price) {
-    planSeleccionado = plan;
     document.getElementById('modal-tag').textContent = 'Club ESM · ' + plan.toUpperCase();
     document.getElementById('modal-title').textContent = 'Plan ' + plan.charAt(0).toUpperCase() + plan.slice(1);
+    document.getElementById('modal-price').textContent = price;
     
-    // Si hace clic en fundador, ajusta visualmente el precio en el modal de forma inteligente
-    if (plan === 'fundador') {
-        let precioFundadorActual = (sociosFundadoresConfirmados < 30) ? '900.000 Gs' : '1.100.000 Gs';
-        document.getElementById('modal-price').textContent = precioFundadorActual;
-    } else {
-        document.getElementById('modal-price').textContent = price;
-    }
+    // Mostramos el dorsal de prueba únicamente aquí dentro del modal
+    document.getElementById('modalDorsalDisplay').textContent = '#' + dorsalPrueba;
     
     document.getElementById('modal').classList.add('active');
     document.body.style.overflow = 'hidden';
@@ -1003,63 +820,25 @@
     if (e.target === this) closeModal();
   });
 
-  // Lógica de Procesamiento y conexión al Webhook de Make
-  async function procesarInscripcion() {
-      const nombre = document.getElementById('userName').value.trim();
-      const telefono = document.getElementById('userPhone').value.trim();
-      const email = document.getElementById('userEmail').value.trim();
+  // Función de simulación para verificar captura de datos en consola
+  function simularInscripcion() {
+    const nombre = document.getElementById('userName').value;
+    const telefono = document.getElementById('userPhone').value;
+    const email = document.getElementById('userEmail').value;
 
-      if (!nombre || !telefono || !email) {
-          alert("Por favor, completa todos los datos para continuar.");
-          return;
-      }
+    if(!nombre || !telefono || !email) {
+        alert("Por favor completa los campos de prueba.");
+        return;
+    }
 
-      // Cálculo exacto del monto usando el algoritmo original corregido
-      let tipoFundador = (planSeleccionado === 'fundador') ? 'SI' : 'NO';
-      let montoFinal = 50000; // Por defecto mensual
-      
-      if (planSeleccionado === 'anual') {
-          montoFinal = 480000;
-      } else if (planSeleccionado === 'fundador') {
-          montoFinal = (dorsalAsignado <= 30) ? 900000 : 1100000;
-      }
+    console.log("Datos capturados listos para la siguiente fase:", {
+        nombre: nombre,
+        whatsapp: telefono,
+        email: email,
+        dorsal: dorsalPrueba
+    });
 
-      // Estructura idéntica esperada por el escenario de Make
-      const datos = {
-          nombre: nombre,
-          whatsapp: telefono,
-          email: email,
-          plan: planSeleccionado,
-          dorsal: dorsalAsignado, // Columna A del Sheets
-          esFundador: tipoFundador,
-          monto: montoFinal
-      };
-
-      try {
-          // 1. Envío asíncrono de datos al Webhook de Make (Entra en Google Sheets como 'Pendiente')
-          await fetch(WEBHOOK_URL, { 
-              method: 'POST', 
-              mode: 'no-cors', 
-              body: JSON.stringify(datos) 
-          });
-
-          // 2. Determinar la URL exacta de Tpago / Bancard
-          let linkFinal;
-          if (planSeleccionado === 'fundador') {
-              linkFinal = (sociosFundadoresConfirmados < 30) 
-                  ? LINKS_TPAGO.fundador_early 
-                  : LINKS_TPAGO.fundador_regular;
-          } else {
-              linkFinal = LINKS_TPAGO[planSeleccionado];
-          }
-
-          // 3. Redireccionar al pasarela de pago para finalizar
-          window.location.href = linkFinal;
-
-      } catch (err) {
-          console.error("Error en la conexión con Make:", err);
-          alert("Hubo un inconveniente al procesar tu solicitud. Por favor, vuelve a intentarlo.");
-      }
+    alert("¡Interfaz lista! Datos validados en consola. Avísame cuando quieras conectar el Webhook real.");
   }
 </script>
 
