@@ -1089,7 +1089,7 @@
   <h1>De corredores,<br><em>para corredores.</em></h1>
   <p class="hero-sub">Una membresía construida desde adentro. Descuentos en marcas, carreras juntos y acceso prioritario a todos los eventos ESM.</p>
   <div class="hero-actions">
-    <button class="btn-primary" onclick="openModal('Fundador', '₲s 900.000 o ₲s 1.100.000')" style="cursor: pointer; border: none;">
+    <button class="btn-primary" onclick="openModal('Fundador', '₲s 900.000 o ₲s 1.100.000', true)" style="cursor: pointer; border: none;">
       Ser socio fundador
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
@@ -1195,7 +1195,7 @@
       <div class="section-label">Solo 100 cupos</div>
       <h2 class="section-title">Ser socio fundador no es un plan.<br><em>Es una decisión.</em></h2>
       <p>Los primeros 100 socios de la historia del Club ESM. Cuando se agoten estos cupos, el socio fundador deja de existir. Para siempre.</p>
-      <button class="btn-primary" onclick="openModal('Fundador', '₲ 900.000 o ₲ 1.100.000')">
+      <button class="btn-primary" onclick="openModal('Fundador', '₲s 900.000 o ₲s 1.100.000', true)">
         Quiero ser fundador
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </button>
@@ -1218,7 +1218,7 @@
           <li class="exclusive">Reconocimiento en palco y ceremonia Triple Crown</li>
           <li class="exclusive">Acceso exclusivo a pre-lanzamientos ESM</li>
         </ul>
-        <button class="plan-cta plan-cta-solid" onclick="openModal('Fundador Early Bird (01–30)', '₲ 900.000 · Pago único')">Asegurar mi lugar</button>
+        <button class="plan-cta plan-cta-solid" onclick="openModal('Fundador Early Bird (01–30)', '₲ 900.000 · Pago único', true)">Asegurar mi lugar</button>
       </div>
 
       <div class="founder-card fade-up" style="transition-delay: 0.1s">
@@ -1234,7 +1234,7 @@
           <li>Acceso prioritario a inscripciones ESM</li>
           <li>Reconocimiento como fundador en web y resultados</li>
         </ul>
-        <button class="plan-cta plan-cta-outline" onclick="openModal('Fundador (31–100)', '₲ 1.100.000 · Pago único')">Asegurar mi lugar</button>
+        <button class="plan-cta plan-cta-outline" onclick="openModal('Fundador (31–100)', '₲ 1.100.000 · Pago único', true)">Asegurar mi lugar</button>
       </div>
     </div>
   </div>
@@ -1308,7 +1308,7 @@
   <h2 class="section-title">Cuando los 100 se agotan,<br><em>el número de fundador deja de existir.</em></h2>
   <p>La membresía sigue abierta — el número, no.</p>
   <div class="cta-actions">
-    <button class="btn-primary" onclick="openModal('Fundador Early Bird (01–30)', '₲ 900.000 · Pago único')">
+    <button class="btn-primary" onclick="openModal('Fundador Early Bird (01–30)', '₲s 900.000 · Pago único', true)">
       Quiero ser fundador
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
     </button>
@@ -1357,11 +1357,13 @@
   // Variables globales para almacenar los datos del plan activo
   let planSeleccionado = '';
   let precioSeleccionado = '';
+  let esFundadorSeleccionado = false; // <-- Nueva variable global
 
   // Modal
-  function openModal(plan, price) {
+  function openModal(plan, price, esFundador = false) {
     planSeleccionado = plan;
     precioSeleccionado = price;
+    esFundadorSeleccionado = esFundador;
     document.getElementById('modal-tag').textContent = 'Club ESM · ' + plan;
     document.getElementById('modal-title').textContent = 'Plan ' + plan;
     document.getElementById('modal-price').textContent = price;
@@ -1401,10 +1403,14 @@
     boton.innerText = 'Procesando...';
     boton.disabled = true;
 
+    // Limpiar el precio para enviar solo el monto numérico limpio
+    const precioLimpio = parseInt(precioSeleccionado.replace(/[^0-9]/g, ''), 10) || 0;
+
     // Crear el objeto de datos estructurado
     const datosEnvio = {
       plan: planSeleccionado,
-      precio: precioSeleccionado,
+      precio: precioLimpio, // Ahora envía solo el número limpio (ej: 50000)
+      es_fundador: esFundadorSeleccionado,
       cedula: cedula,
       nombre: nombre,
       whatsapp: whatsapp,
