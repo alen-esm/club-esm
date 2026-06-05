@@ -1348,14 +1348,20 @@
       <input type="email" class="form-input" placeholder="tu@email.com">
     </div>
 
-    <button class="modal-cta">Ir a pagar con Tpago →</button>
+    <button class="modal-cta" id="btn-submit-form" onclick="enviarAlWebhook()">Ir a pagar con Tpago →</button>
     <div class="modal-secure">🔒 Pago seguro · Bancard · Confirmación por WhatsApp</div>
   </div>
 </div>
 
 <script>
+  // Variables globales para almacenar los datos del plan activo
+  let planSeleccionado = '';
+  let precioSeleccionado = '';
+
   // Modal
   function openModal(plan, price) {
+    planSeleccionado = plan;
+    precioSeleccionado = price;
     document.getElementById('modal-tag').textContent = 'Club ESM · ' + plan;
     document.getElementById('modal-title').textContent = 'Plan ' + plan;
     document.getElementById('modal-price').textContent = price;
@@ -1371,6 +1377,69 @@
   document.getElementById('modal').addEventListener('click', function(e) {
     if (e.target === this) closeModal();
   });
+
+  // Conexión al Webhook
+  function enviarAlWebhook() {
+    // URL de tu Webhook
+    const webhookUrl = 'https://automatiza.alen-dev.com/webhook/649c73a5-4620-4e34-b790-5be888f92254';
+
+    // Capturar de forma exacta los inputs por su orden en el formulario
+    const inputs = document.querySelectorAll('.modal .form-input');
+    const cedula = inputs[0].value.trim();
+    const nombre = inputs[1].value.trim();
+    const whatsapp = inputs[2].value.trim();
+    const email = inputs[3].value.trim();
+    const boton = document.getElementById('btn-submit-form');
+
+    // Validación básica para asegurar que completen los campos indispensables
+    if (!cedula || !nombre || !whatsapp) {
+      alert('Por favor, completa los campos de Cédula, Nombre y WhatsApp.');
+      return;
+    }
+
+    // Cambiar estado del botón mientras procesa
+    boton.innerText = 'Procesando...';
+    boton.disabled = true;
+
+    // Crear el objeto de datos estructurado
+    const datosEnvio = {
+      plan: planSeleccionado,
+      precio: precioSeleccionado,
+      cedula: cedula,
+      nombre: nombre,
+      whatsapp: whatsapp,
+      email: email,
+      fecha_inscripcion: new Date().toISOString()
+    };
+
+    // Petición HTTP POST al Webhook
+    fetch(webhookUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(datosEnvio)
+    })
+    .then(response => {
+      if (response.ok) {
+        alert('Inscripción registrada con éxito. Nos comunicaremos por WhatsApp.');
+        closeModal();
+        // Limpiar formulario
+        inputs.forEach(input => input.value = '');
+      } else {
+        alert('Hubo un error al procesar el registro. Inténtalo de nuevo.');
+      }
+    })
+    .catch(error => {
+      console.error('Error:', error);
+      alert('Error de conexión con el servidor.');
+    })
+    .finally(() => {
+      // Restaurar el botón original
+      boton.innerText = 'Ir a pagar con Tpago →';
+      boton.disabled = false;
+    });
+  }
 
   // Scroll animations
   const observer = new IntersectionObserver((entries) => {
