@@ -33,7 +33,18 @@
     overflow-x: hidden;
   }
 
-  /* NAV */
+  /* Typography */
+  h1, h2, h3, .serif {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+  }
+
+  /* Layout Elements */
+  .section-padding {
+    padding: 140px 10%;
+  }
+
+  /* Navigation */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -43,6 +54,8 @@
     align-items: center;
     padding: 28px 60px;
     background: linear-gradient(to bottom, rgba(10,10,10,0.95), transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(255,255,255,0.03);
   }
 
   .nav-logo {
@@ -67,11 +80,14 @@
     font-size: 11px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    opacity: 0.7;
-    transition: opacity 0.3s;
+    opacity: 0.6;
+    transition: opacity 0.3s, color 0.3s;
   }
 
-  .nav-links a:hover { opacity: 1; }
+  .nav-links a:hover {
+    opacity: 1;
+    color: var(--gold-light);
+  }
 
   .nav-cta {
     font-size: 11px;
@@ -85,18 +101,17 @@
   }
 
   .nav-cta:hover {
-    background: var(--gold) !important;
+    background: var(--gold);
     color: var(--black) !important;
-    opacity: 1 !important;
   }
 
-  /* HERO */
+  /* Hero Section */
   .hero {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-    padding: 0 60px 100px;
+    padding: 0 10% 100px;
     position: relative;
     overflow: hidden;
   }
@@ -104,9 +119,10 @@
   .hero-bg {
     position: absolute;
     inset: 0;
-    background:
+    background: 
       radial-gradient(ellipse 80% 60% at 70% 40%, rgba(200,169,110,0.06) 0%, transparent 70%),
       radial-gradient(ellipse 50% 80% at 20% 80%, rgba(200,169,110,0.04) 0%, transparent 60%);
+    z-index: 1;
   }
 
   .hero-track {
@@ -116,6 +132,7 @@
     height: 100%;
     background: linear-gradient(135deg, #111 0%, #0d0d0d 100%);
     clip-path: polygon(15% 0, 100% 0, 100% 100%, 0% 100%);
+    z-index: 0;
     overflow: hidden;
   }
 
@@ -123,14 +140,13 @@
     content: '';
     position: absolute;
     inset: 0;
-    background:
-      repeating-linear-gradient(
-        90deg,
-        transparent,
-        transparent 60px,
-        rgba(200,169,110,0.03) 60px,
-        rgba(200,169,110,0.03) 61px
-      );
+    background: repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 60px,
+      rgba(200,169,110,0.03) 60px,
+      rgba(200,169,110,0.03) 61px
+    );
   }
 
   .hero-number {
@@ -145,6 +161,12 @@
     line-height: 1;
     user-select: none;
     letter-spacing: -0.05em;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 680px;
   }
 
   .hero-tag {
@@ -167,18 +189,16 @@
   }
 
   .hero h1 {
-    font-family: 'Cormorant Garamond', serif;
     font-size: clamp(56px, 7vw, 100px);
-    font-weight: 300;
-    line-height: 1.0;
+    line-height: 1.05;
     letter-spacing: -0.02em;
-    max-width: 700px;
     margin-bottom: 32px;
   }
 
   .hero h1 em {
     font-style: italic;
     color: var(--gold-light);
+    font-weight: 300;
   }
 
   .hero-sub {
@@ -195,6 +215,7 @@
     display: flex;
     align-items: center;
     gap: 40px;
+    margin-bottom: 90px;
   }
 
   .btn-primary {
@@ -210,17 +231,30 @@
     text-transform: uppercase;
     padding: 18px 40px;
     transition: background 0.3s, transform 0.3s;
+    border: none;
+    cursor: pointer;
   }
 
   .btn-primary:hover {
     background: var(--gold-light);
-    transform: translateY(-1px);
+    transform: translateY(-2px);
   }
 
-  .btn-primary svg { width: 14px; height: 14px; }
+  .btn-primary svg {
+    width: 14px;
+    height: 14px;
+    transition: transform 0.3s;
+  }
+
+  .btn-primary:hover svg {
+    transform: translateX(4px);
+  }
 
   .btn-ghost {
+    display: inline-flex;
+    align-items: center;
     font-size: 11px;
+    font-weight: 400;
     letter-spacing: 0.18em;
     text-transform: uppercase;
     color: rgba(245,242,237,0.5);
@@ -228,176 +262,146 @@
     transition: color 0.3s;
   }
 
-  .btn-ghost:hover { color: var(--white); }
+  .btn-ghost:hover {
+    color: var(--white);
+  }
 
   .hero-stats {
-    position: absolute;
-    right: 60px;
-    bottom: 100px;
     display: flex;
-    gap: 60px;
+    gap: 80px;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    padding-top: 40px;
+    position: relative;
+    z-index: 2;
   }
 
   .stat {
-    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
   }
 
   .stat-num {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 42px;
+    font-size: 38px;
     font-weight: 300;
-    color: var(--gold);
+    color: var(--gold-light);
     line-height: 1;
-    display: block;
   }
 
   .stat-label {
     font-size: 9px;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: rgba(245,242,237,0.4);
-    margin-top: 8px;
-    display: block;
+    color: var(--gray-text);
   }
 
-  /* DIVIDER */
-  .divider {
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(to right, transparent, rgba(200,169,110,0.3), transparent);
-    margin: 0;
-  }
-
-  /* MARQUEE */
-  .marquee-wrap {
-    overflow: hidden;
-    padding: 20px 0;
-    border-top: 1px solid rgba(200,169,110,0.1);
-    border-bottom: 1px solid rgba(200,169,110,0.1);
-  }
-
-  .marquee-inner {
-    display: flex;
-    gap: 80px;
-    animation: marquee 25s linear infinite;
-    white-space: nowrap;
-  }
-
-  .marquee-item {
-    font-size: 10px;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: rgba(200,169,110,0.5);
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-shrink: 0;
-  }
-
-  .marquee-item::after {
-    content: '◆';
-    color: rgba(200,169,110,0.3);
-    font-size: 6px;
-  }
-
-  @keyframes marquee {
-    from { transform: translateX(0); }
-    to { transform: translateX(-50%); }
-  }
-
-  /* SECTIONS */
-  section {
-    padding: 120px 60px;
-  }
-
+  /* Section Structural Components */
   .section-label {
     font-size: 10px;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 20px;
+    margin-bottom: 24px;
     display: flex;
     align-items: center;
     gap: 16px;
   }
 
-  .section-label::after {
+  .section-label::before {
     content: '';
     display: block;
-    flex: 1;
-    max-width: 60px;
+    width: 30px;
     height: 1px;
-    background: var(--gold-dark);
+    background: var(--gold);
+  }
+
+  .section-header {
+    margin-bottom: 80px;
   }
 
   .section-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: clamp(40px, 5vw, 72px);
-    font-weight: 300;
+    font-size: clamp(40px, 5vw, 64px);
     line-height: 1.1;
-    margin-bottom: 60px;
+    letter-spacing: -0.01em;
+    color: var(--white);
   }
 
-  /* PLANES */
-  .plans-section { background: var(--black); }
+  .section-title em {
+    font-style: italic;
+    color: var(--gold);
+    font-weight: 300;
+  }
+
+  /* Divider line */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(200,169,110,0.15), transparent);
+  }
+
+  /* Memberships Section */
+  .plans-section {
+    background: var(--black);
+  }
 
   .plans-intro {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.2fr 1fr;
     gap: 80px;
-    align-items: end;
-    margin-bottom: 80px;
+    align-items: flex-end;
   }
 
   .plans-intro p {
     font-size: 14px;
-    color: rgba(245,242,237,0.5);
+    color: rgba(245,242,237,0.45);
     line-height: 1.9;
-    align-self: end;
+    padding-bottom: 8px;
   }
 
   .plans-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 2px;
+    gap: 32px;
+    margin-top: 80px;
   }
 
   .plan-card {
     background: var(--gray);
-    padding: 56px 48px;
+    border: 1px solid rgba(255,255,255,0.02);
+    padding: 64px 48px;
     position: relative;
-    transition: background 0.4s;
-    border: 1px solid rgba(200,169,110,0.06);
+    transition: border-color 0.4s, transform 0.4s;
   }
 
   .plan-card:hover {
-    background: #1f1f1f;
+    border-color: rgba(200,169,110,0.15);
+    transform: translateY(-4px);
   }
 
   .plan-card.featured {
-    background: #141414;
-    border-color: rgba(200,169,110,0.15);
+    background: linear-gradient(to bottom cubic-bezier(0.16, 1, 0.3, 1), #161616, #111111);
+    border: 1px solid rgba(200,169,110,0.12);
   }
 
   .plan-badge {
     position: absolute;
-    top: 28px;
-    right: 28px;
+    top: 32px; right: 48px;
     font-size: 9px;
-    letter-spacing: 0.25em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
-    color: var(--black);
     background: var(--gold);
-    padding: 6px 14px;
+    color: var(--black);
+    padding: 6px 16px;
     font-weight: 600;
   }
 
   .plan-name {
-    font-size: 10px;
-    letter-spacing: 0.3em;
+    font-size: 11px;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 32px;
+    margin-bottom: 40px;
   }
 
   .plan-price {
@@ -405,63 +409,60 @@
     font-size: 64px;
     font-weight: 300;
     line-height: 1;
-    color: var(--white);
-    margin-bottom: 8px;
+    margin-bottom: 12px;
   }
 
   .plan-price span {
-    font-size: 20px;
-    color: var(--gray-text);
     font-family: 'Montserrat', sans-serif;
-    font-weight: 300;
+    font-size: 14px;
+    color: var(--gray-text);
+    letter-spacing: 0;
+    margin-left: 4px;
   }
 
   .plan-period {
-    font-size: 11px;
+    font-size: 12px;
     color: var(--gray-text);
-    letter-spacing: 0.1em;
     margin-bottom: 48px;
-    padding-bottom: 48px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
   }
 
   .plan-features {
     list-style: none;
-    margin-bottom: 48px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-bottom: 56px;
   }
 
   .plan-features li {
     font-size: 13px;
     color: rgba(245,242,237,0.6);
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
     display: flex;
     align-items: flex-start;
-    gap: 12px;
-    line-height: 1.5;
+    gap: 14px;
+    line-height: 1.6;
   }
 
   .plan-features li::before {
-    content: '—';
-    color: var(--gold-dark);
-    flex-shrink: 0;
-    font-size: 12px;
-    margin-top: 2px;
+    content: "—";
+    color: var(--gold);
+    font-weight: 400;
   }
 
   .plan-cta {
     display: block;
+    width: 100%;
     text-align: center;
-    padding: 16px;
+    padding: 20px;
     font-size: 11px;
     font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     text-decoration: none;
-    transition: all 0.3s;
+    transition: background 0.3s, color 0.3s, border-color 0.3s;
     cursor: pointer;
-    border: none;
-    width: 100%;
   }
 
   .plan-cta-outline {
@@ -472,870 +473,586 @@
 
   .plan-cta-outline:hover {
     border-color: var(--gold);
-    background: rgba(200,169,110,0.06);
+    background: rgba(200,169,110,0.04);
   }
 
   .plan-cta-solid {
     background: var(--gold);
     color: var(--black);
+    border: 1px solid var(--gold);
   }
 
   .plan-cta-solid:hover {
     background: var(--gold-light);
+    border-color: var(--gold-light);
   }
 
-  /* FUNDADOR */
+  /* Founders Section */
   .founder-section {
     background: #0d0d0d;
-    padding: 120px 60px;
     position: relative;
     overflow: hidden;
   }
 
-  .founder-bg {
+  .founder-bg-element {
     position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 60% 80% at 80% 50%, rgba(200,169,110,0.04) 0%, transparent 70%);
+    right: -10%; top: -10%;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(200,169,110,0.03) 0%, transparent 70%);
+    z-index: 0;
   }
 
   .founder-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 120px;
+    grid-template-columns: 1fr 1.1fr;
+    gap: 100px;
     align-items: center;
     position: relative;
     z-index: 1;
   }
 
-  .founder-content .section-title {
-    margin-bottom: 28px;
-  }
-
   .founder-content p {
-    font-size: 14px;
+    font-size: 15px;
     color: rgba(245,242,237,0.5);
     line-height: 1.9;
+    margin-top: 32px;
     margin-bottom: 48px;
   }
 
   .founder-cards {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: 24px;
   }
 
   .founder-card {
     background: var(--gray);
-    padding: 40px;
-    border: 1px solid rgba(200,169,110,0.06);
-    position: relative;
+    border: 1px solid rgba(255,255,255,0.02);
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: center;
     transition: border-color 0.4s;
   }
 
   .founder-card:hover {
-    border-color: rgba(200,169,110,0.2);
+    border-color: rgba(200,169,110,0.1);
   }
 
-  .founder-card-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 32px;
+  .founder-card-info h3 {
+    font-size: 24px;
+    color: var(--white);
+    margin-bottom: 6px;
   }
 
-  .founder-card-tag {
+  .founder-card-info .slots {
     font-size: 9px;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--gold);
+    margin-bottom: 24px;
+    display: block;
   }
 
-  .founder-card-slots {
-    font-size: 9px;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--gray-text);
+  .founder-card-features {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .founder-card-features li {
+    font-size: 12px;
+    color: rgba(245,242,237,0.45);
+    line-height: 1.5;
+  }
+
+  .founder-card-pricing {
+    text-align: right;
+    border-left: 1px solid rgba(255,255,255,0.05);
+    padding-left: 40px;
   }
 
   .founder-card-price {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 52px;
+    font-size: 44px;
     font-weight: 300;
     color: var(--white);
     line-height: 1;
-    margin-bottom: 6px;
+    margin-bottom: 4px;
   }
 
-  .founder-card-sub {
-    font-size: 11px;
+  .founder-card-label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
     color: var(--gray-text);
-    letter-spacing: 0.08em;
-    margin-bottom: 32px;
   }
 
-  .founder-features {
-    list-style: none;
-    margin-bottom: 36px;
-  }
-
-  .founder-features li {
-    font-size: 12px;
-    color: rgba(245,242,237,0.55);
-    padding: 8px 0;
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-    line-height: 1.5;
-  }
-
-  .founder-features li.exclusive {
-    color: rgba(200,169,110,0.9);
-  }
-
-  .founder-features li::before {
-    content: '—';
-    color: var(--gold-dark);
-    flex-shrink: 0;
-  }
-
-  /* DORSAL */
-  .dorsal-section {
+  /* Identity Section */
+  .identity-section {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 0;
-    min-height: 400px;
+    background: var(--black);
+    padding: 0;
   }
 
-  .dorsal-content {
-    background: var(--gray);
-    padding: 100px 80px;
+  .identity-text {
+    padding: 140px 15% 140px 20%;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 1px solid rgba(200,169,110,0.06);
   }
 
-  .dorsal-visual {
-    background: #0d0d0d;
+  .identity-text p {
+    font-size: 14px;
+    color: rgba(245,242,237,0.5);
+    line-height: 1.9;
+    margin-top: 32px;
+  }
+
+  .identity-visual {
+    background: #0e0e0e;
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    overflow: hidden;
-    min-height: 400px;
+    min-height: 500px;
+    border-left: 1px solid rgba(255,255,255,0.02);
   }
 
-  .dorsal-visual::before {
+  .identity-visual::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 40px,
-      rgba(200,169,110,0.03) 40px,
-      rgba(200,169,110,0.03) 41px
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent,
-      transparent 40px,
-      rgba(200,169,110,0.03) 40px,
-      rgba(200,169,110,0.03) 41px
-    );
+    background: 
+      repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(200,169,110,0.015) 40px, rgba(200,169,110,0.015) 41px),
+      repeating-linear-gradient(90deg, transparent, transparent 40px, rgba(200,169,110,0.015) 40px, rgba(200,169,110,0.015) 41px);
   }
 
-  .dorsal-num {
+  .identity-bg-num {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 220px;
-    font-weight: 300;
-    color: rgba(200,169,110,0.12);
+    font-size: 260px;
+    color: rgba(200,169,110,0.03);
     position: absolute;
-    line-height: 1;
     user-select: none;
+    font-weight: 300;
   }
 
   .dorsal-badge {
     position: relative;
-    z-index: 1;
-    width: 160px;
-    height: 200px;
+    width: 180px;
+    height: 230px;
     background: var(--white);
+    box-shadow: 0 30px 60px rgba(0,0,0,0.4);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    clip-path: polygon(0 0, 100% 0, 100% 85%, 50% 100%, 0 85%);
-    box-shadow: 0 40px 80px rgba(0,0,0,0.5);
+    padding: 30px;
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 50% 100%, 0 88%);
   }
 
-  .dorsal-badge-logo {
+  .dorsal-badge .logo {
     font-family: 'Cormorant Garamond', serif;
     font-size: 12px;
     font-weight: 600;
     letter-spacing: 0.3em;
     color: var(--black);
-    text-transform: uppercase;
+    border-bottom: 1px solid rgba(10,10,10,0.1);
+    padding-bottom: 4px;
+    width: 100%;
+    text-align: center;
   }
 
-  .dorsal-badge-number {
+  .dorsal-badge .number {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 72px;
+    font-size: 76px;
     font-weight: 300;
     color: var(--black);
-    line-height: 1;
+    line-height: 1.1;
+    margin: 16px 0;
   }
 
-  .dorsal-badge-label {
+  .dorsal-badge .type {
     font-size: 8px;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: rgba(10,10,10,0.5);
-  }
-
-  /* BENEFITS */
-  .benefits-section { background: var(--black); }
-
-  .benefits-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-  }
-
-  .benefit-card {
-    background: var(--gray);
-    padding: 48px;
-    border: 1px solid rgba(200,169,110,0.04);
-    transition: border-color 0.4s, background 0.4s;
-  }
-
-  .benefit-card:hover {
-    border-color: rgba(200,169,110,0.12);
-    background: #1c1c1c;
-  }
-
-  .benefit-icon {
-    width: 40px;
-    height: 40px;
-    border: 1px solid rgba(200,169,110,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 32px;
-    color: var(--gold);
-    font-size: 16px;
-  }
-
-  .benefit-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 24px;
-    font-weight: 400;
-    margin-bottom: 16px;
-    line-height: 1.2;
-  }
-
-  .benefit-desc {
-    font-size: 13px;
-    color: rgba(245,242,237,0.45);
-    line-height: 1.8;
-  }
-
-  /* STEPS */
-  .steps-section {
-    background: #0a0a0a;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .steps-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 60px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .step {
-    position: relative;
-  }
-
-  .step-num {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 100px;
-    font-weight: 300;
-    color: rgba(200,169,110,0.1);
-    line-height: 1;
-    margin-bottom: -20px;
-  }
-
-  .step-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 28px;
-    font-weight: 400;
-    margin-bottom: 16px;
-  }
-
-  .step-desc {
-    font-size: 13px;
-    color: rgba(245,242,237,0.45);
-    line-height: 1.8;
-  }
-
-  /* CTA FINAL */
-  .cta-section {
-    background: var(--gray);
-    padding: 160px 60px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-    border-top: 1px solid rgba(200,169,110,0.1);
-  }
-
-  .cta-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(ellipse 60% 60% at 50% 50%, rgba(200,169,110,0.05) 0%, transparent 70%);
-  }
-
-  .cta-section .section-label {
-    justify-content: center;
-  }
-
-  .cta-section .section-label::before {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 1px;
-    background: var(--gold-dark);
-  }
-
-  .cta-section .section-label::after {
-    content: '';
-    display: block;
-    width: 60px;
-    height: 1px;
-    background: var(--gold-dark);
-    max-width: 60px;
-  }
-
-  .cta-section .section-title {
-    margin-bottom: 20px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .cta-section p {
-    font-size: 14px;
-    color: rgba(245,242,237,0.45);
-    margin-bottom: 56px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .cta-actions {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    position: relative;
-    z-index: 1;
-  }
-
-  .btn-secondary {
-    display: inline-flex;
-    align-items: center;
-    gap: 12px;
-    border: 1px solid rgba(200,169,110,0.3);
-    color: var(--gold);
-    text-decoration: none;
-    font-size: 11px;
-    font-weight: 600;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    padding: 18px 40px;
-    transition: all 0.3s;
-    background: transparent;
-    cursor: pointer;
+    color: rgba(10,10,10,0.4);
+    font-weight: 500;
   }
 
-  .btn-secondary:hover {
-    border-color: var(--gold);
-    background: rgba(200,169,110,0.06);
-  }
-
-  /* FOOTER */
+  /* Footer */
   footer {
-    background: var(--black);
-    padding: 60px;
+    background: #060606;
+    padding: 60px 10%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid rgba(255,255,255,0.06);
+    border-top: 1px solid rgba(255,255,255,0.02);
+  }
+
+  footer p {
+    font-size: 11px;
+    color: var(--gray-text);
+    letter-spacing: 0.05em;
   }
 
   .footer-logo {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 18px;
-    font-weight: 400;
+    font-size: 16px;
     letter-spacing: 0.2em;
-    color: var(--gold);
+    color: rgba(200,169,110,0.4);
     text-transform: uppercase;
   }
 
-  .footer-text {
-    font-size: 11px;
-    color: rgba(245,242,237,0.3);
-    letter-spacing: 0.08em;
-  }
-
-  .footer-link {
-    font-size: 11px;
-    color: rgba(245,242,237,0.4);
-    text-decoration: none;
-    letter-spacing: 0.1em;
-    transition: color 0.3s;
-  }
-
-  .footer-link:hover { color: var(--gold); }
-
-  /* MODAL */
+  /* Modal System */
   .modal-overlay {
-    display: none;
     position: fixed;
     inset: 0;
-    background: rgba(0,0,0,0.85);
-    z-index: 200;
+    background: rgba(6,6,6,0.85);
+    backdrop-filter: blur(12px);
+    z-index: 1000;
+    display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(4px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    padding: 24px;
   }
 
   .modal-overlay.active {
-    display: flex;
+    opacity: 1;
+    pointer-events: auto;
   }
 
-  .modal {
-    background: #141414;
+  .modal-card {
+    background: var(--gray);
     border: 1px solid rgba(200,169,110,0.15);
-    padding: 60px;
     width: 100%;
-    max-width: 520px;
+    max-width: 460px;
+    padding: 56px 48px;
     position: relative;
-    animation: modalIn 0.4s ease;
+    transform: translateY(30px);
+    transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  @keyframes modalIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+  .modal-overlay.active .modal-card {
+    transform: translateY(0);
   }
 
   .modal-close {
     position: absolute;
-    top: 24px; right: 24px;
-    background: none;
+    top: 28px; right: 28px;
+    background: transparent;
     border: none;
-    color: var(--gray-text);
-    font-size: 20px;
+    color: rgba(245,242,237,0.3);
+    font-size: 18px;
     cursor: pointer;
     transition: color 0.3s;
-    line-height: 1;
-    padding: 4px;
   }
 
-  .modal-close:hover { color: var(--white); }
+  .modal-close:hover {
+    color: var(--white);
+  }
 
   .modal-tag {
     font-size: 9px;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--gold);
-    margin-bottom: 12px;
+    margin-bottom: 16px;
+    display: block;
   }
 
-  .modal-title {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 36px;
-    font-weight: 300;
-    margin-bottom: 8px;
+  .modal-card h3 {
+    font-size: 32px;
+    margin-bottom: 6px;
+    color: var(--white);
   }
 
-  .modal-price {
+  .modal-price-display {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 22px;
-    font-weight: 300;
-    color: var(--gold);
-    margin-bottom: 40px;
-    padding-bottom: 40px;
-    border-bottom: 1px solid rgba(255,255,255,0.06);
+    font-size: 24px;
+    color: var(--gold-light);
+    margin-bottom: 36px;
   }
 
   .form-group {
-    margin-bottom: 20px;
+    margin-bottom: 24px;
   }
 
   .form-label {
     display: block;
-    font-size: 10px;
-    letter-spacing: 0.2em;
+    font-size: 9px;
+    letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--gray-text);
-    margin-bottom: 10px;
+    margin-bottom: 8px;
   }
 
   .form-input {
     width: 100%;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(255,255,255,0.08);
+    background: #121212;
+    border: 1px solid rgba(255,255,255,0.06);
+    padding: 16px;
     color: var(--white);
-    padding: 14px 18px;
     font-family: 'Montserrat', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 300;
-    outline: none;
-    transition: border-color 0.3s;
+    transition: border-color 0.3s, background 0.3s;
   }
 
   .form-input:focus {
-    border-color: rgba(200,169,110,0.4);
-  }
-
-  .form-input::placeholder {
-    color: rgba(255,255,255,0.2);
+    outline: none;
+    border-color: var(--gold-dark);
+    background: #161616;
   }
 
   .modal-cta {
     display: block;
     width: 100%;
-    margin-top: 32px;
     background: var(--gold);
     color: var(--black);
     border: none;
     padding: 18px;
-    font-family: 'Montserrat', sans-serif;
     font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 0.25em;
+    font-weight: 600;
+    letter-spacing: 0.2em;
     text-transform: uppercase;
     cursor: pointer;
     transition: background 0.3s;
+    margin-top: 40px;
+    margin-bottom: 16px;
   }
 
-  .modal-cta:hover { background: var(--gold-light); }
+  .modal-cta:hover {
+    background: var(--gold-light);
+  }
 
   .modal-secure {
-    text-align: center;
-    margin-top: 16px;
     font-size: 10px;
-    color: rgba(245,242,237,0.25);
-    letter-spacing: 0.1em;
+    color: var(--gray-text);
+    text-align: center;
+    letter-spacing: 0.05em;
   }
 
-  /* ANIMATIONS */
-  .fade-up {
+  /* Scroll-triggered animations styles */
+  .fade-in-up {
     opacity: 0;
     transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
+    transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
-  .fade-up.visible {
+  .fade-in-up.visible {
     opacity: 1;
     transform: translateY(0);
   }
 
-  @media (max-width: 768px) {
-    nav { padding: 24px 24px; }
-    .nav-links { display: none; }
-    .hero { padding: 0 24px 80px; }
-    .hero-track { display: none; }
-    .hero-stats { display: none; }
-    section { padding: 80px 24px; }
+  /* Responsive Adjustments */
+  @media(max-width: 1024px) {
+    .section-padding { padding: 100px 6%; }
     .plans-intro { grid-template-columns: 1fr; gap: 32px; }
-    .plans-grid { grid-template-columns: 1fr; }
+    .plans-grid { grid-template-columns: 1fr; gap: 32px; }
     .founder-grid { grid-template-columns: 1fr; gap: 60px; }
-    .dorsal-section { grid-template-columns: 1fr; }
-    .benefits-grid { grid-template-columns: 1fr; }
-    .steps-grid { grid-template-columns: 1fr; gap: 40px; }
-    .cta-actions { flex-direction: column; align-items: center; }
-    footer { flex-direction: column; gap: 20px; text-align: center; }
-    .modal { padding: 40px 28px; margin: 20px; }
+    .identity-section { grid-template-columns: 1fr; }
+    .identity-text { padding: 100px 6%; }
+  }
+
+  @media(max-width: 768px) {
+    nav { padding: 20px 24px; }
+    .nav-links { display: none; }
+    .hero { padding: 0 6% 60px; }
+    .hero-track { width: 100%; opacity: 0.1; clip-path: none; }
+    .hero h1 { font-size: 48px; }
+    .hero-actions { flex-direction: column; align-items: flex-start; gap: 20px; margin-bottom: 60px; }
+    .btn-primary { width: 100%; justify-content: center; }
+    
+    /* CAMBIO RESPONSIVE SOLICITADO PARA LAS ESTADÍSTICAS */
+    .hero-stats { 
+      flex-direction: row; 
+      flex-wrap: wrap; 
+      gap: 32px; 
+      padding-top: 30px; 
+    }
+    .stat {
+      flex: 1 1 120px; /* Permite que se acomoden de a dos o tres fluidamente */
+    }
+    .stat-num { font-size: 32px; }
+    
+    .founder-card { grid-template-columns: 1fr; gap: 24px; }
+    .founder-card-pricing { text-align: left; border-left: none; border-top: 1px solid rgba(255,255,255,0.05); padding-left: 0; padding-top: 24px; }
+    .modal-card { padding: 40px 24px; }
   }
 </style>
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a href="https://ensusmarcas.com.py" class="nav-logo">Club ESM</a>
+  <a href="#" class="nav-logo">CLUB ESM</a>
   <ul class="nav-links">
-    <li><a href="#planes">Planes</a></li>
+    <li><a href="#planes">Membresías</a></li>
     <li><a href="#fundador">Socio Fundador</a></li>
-    <li><a href="#beneficios">Beneficios</a></li>
-    <li><a href="#planes" class="nav-cta">Unirme</a></li>
   </ul>
+  <a href="#planes" class="nav-cta">Unirse al Club</a>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-track">
-    <div class="hero-number">01</div>
+    <div class="hero-number">#01</div>
   </div>
-
-  <div class="hero-tag">Lanzamiento · Cupos fundador limitados</div>
-  <h1>De corredores,<br><em>para corredores.</em></h1>
-  <p class="hero-sub">Una membresía construida desde adentro. Descuentos en marcas, carreras juntos y acceso prioritario a todos los eventos ESM.</p>
-  <div class="hero-actions">
-    <a href="#fundador" class="btn-primary">
-      Ser socio fundador
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
-    <a href="#planes" class="btn-ghost">Ver planes →</a>
-  </div>
-
-  <div class="hero-stats">
-    <div class="stat">
-      <span class="stat-num">3</span>
-      <span class="stat-label">Fechas Triple Crown</span>
+  
+  <div class="hero-content">
+    <div class="hero-tag">Lanzamiento · Cupos fundador limitados</div>
+    <h1>De corredores,<br><em>para corredores.</em></h1>
+    <p class="hero-sub">Una membresía construida desde adentro. Descuentos en marcas, carreras juntos y acceso prioritario a todos los eventos ESM.</p>
+    
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="openModal('fundador', '900.000 Gs / 1.100.000 Gs')">
+        Ser socio fundador
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+      <a href="#planes" class="btn-ghost">Ver planes →</a>
     </div>
-    <div class="stat">
-      <span class="stat-num">1K+</span>
-      <span class="stat-label">Corredores por fecha</span>
-    </div>
-    <div class="stat">
-      <span class="stat-num">100</span>
-      <span class="stat-label">Cupos Fundador</span>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">3</span>
+        <span class="stat-label">Fechas Triple Crown</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">1K+</span>
+        <span class="stat-label">Corredores por fecha</span>
+      </div>
+      <div class="stat">
+        <span class="stat-num">100</span>
+        <span class="stat-label">Cupos Fundador</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- MARQUEE -->
-<div class="marquee-wrap">
-  <div class="marquee-inner">
-    <span class="marquee-item">Descuentos exclusivos</span>
-    <span class="marquee-item">Dorsal permanente</span>
-    <span class="marquee-item">Triple Crown ESM</span>
-    <span class="marquee-item">Acceso prioritario</span>
-    <span class="marquee-item">Comunidad de corredores</span>
-    <span class="marquee-item">Solo 100 fundadores</span>
-    <span class="marquee-item">Descuentos exclusivos</span>
-    <span class="marquee-item">Dorsal permanente</span>
-    <span class="marquee-item">Triple Crown ESM</span>
-    <span class="marquee-item">Acceso prioritario</span>
-    <span class="marquee-item">Comunidad de corredores</span>
-    <span class="marquee-item">Solo 100 fundadores</span>
-  </div>
-</div>
+<div class="divider"></div>
 
-<!-- PLANES -->
-<section class="plans-section" id="planes">
+<section class="plans-section section-padding fade-in-up" id="planes">
+  <div class="section-label">Membresías</div>
   <div class="plans-intro">
-    <div>
-      <div class="section-label">Membresía</div>
-      <h2 class="section-title">Elegí cómo<br>querés correr.</h2>
-    </div>
-    <p>Dos planes, una misma comunidad. Cancelás cuando querés, sin compromisos.<br>El número de socio es tuyo para siempre.</p>
+    <h2 class="section-title">Elige tu plan de <em>entrenamiento.</em></h2>
+    <p>Todos los planes incluyen acceso completo a la plataforma, entrenamientos grupales coordinados por capitanes y beneficios directos con sponsors oficiales de la marca ESM.</p>
   </div>
 
   <div class="plans-grid">
-    <div class="plan-card fade-up">
-      <div class="plan-name">Plan Mensual</div>
-      <div class="plan-price">₲ 50K<span>/mes</span></div>
-      <div class="plan-period">Renovación automática · Cancelás cuando querés</div>
+    <div class="plan-card">
+      <div class="plan-name">Mensual</div>
+      <div class="plan-price">50.000<span>Gs/mes</span></div>
+      <div class="plan-period">Suscripción regular renovable</div>
       <ul class="plan-features">
-        <li>Descuentos en marcas deportivas aliadas</li>
-        <li>Precios especiales en carreras ESM</li>
-        <li>Correr juntos una vez por mes</li>
-        <li>Capacitaciones y encuentros del club</li>
+        <li>Acceso a todos los puntos de entrenamiento</li>
+        <li>Planes base compartidos mensualmente</li>
+        <li>Sorteos y descuentos básicos de partners</li>
       </ul>
-      <button class="plan-cta plan-cta-outline" onclick="openModal('Mensual', '₲ 50.000/mes')">Unirme al plan mensual</button>
+      <button class="plan-cta plan-cta-outline" onclick="openModal('Mensual', '50.000 Gs / mes')">Seleccionar Plan</button>
     </div>
 
-    <div class="plan-card featured fade-up" style="transition-delay: 0.1s">
-      <div class="plan-badge">Mejor valor</div>
-      <div class="plan-name">Plan Anual</div>
-      <div class="plan-price">₲ 480K<span>/año</span></div>
-      <div class="plan-period">= ₲ 40.000 por mes · Ahorrás ₲ 120.000</div>
+    <div class="plan-card featured">
+      <div class="plan-badge">Recomendado</div>
+      <div class="plan-name">Anual</div>
+      <div class="plan-price">480.000<span>Gs/año</span></div>
+      <div class="plan-period">Pago único equivalente a 40.000 Gs al mes</div>
       <ul class="plan-features">
-        <li>Todo lo incluido en el plan mensual</li>
-        <li>2 meses gratis respecto al mensual</li>
-        <li>Acceso prioritario a eventos ESM</li>
-        <li>Precio bloqueado por 12 meses</li>
+        <li>Todos los beneficios del plan mensual</li>
+        <li>Kit oficial de bienvenida de corredor ESM</li>
+        <li>Prioridad de inscripción y precio congelado en carreras</li>
+        <li>Descuento exclusivo de hasta 20% en marcas aliadas</li>
       </ul>
-      <button class="plan-cta plan-cta-solid" onclick="openModal('Anual', '₲ 480.000/año')">Unirme al plan anual</button>
+      <button class="plan-cta plan-cta-solid" onclick="openModal('Anual', '480.000 Gs / año')">Seleccionar Plan</button>
     </div>
   </div>
 </section>
 
-<!-- DORSAL -->
-<div class="dorsal-section">
-  <div class="dorsal-content fade-up">
-    <div class="section-label">Tu identidad</div>
-    <h2 class="section-title" style="font-size: 40px; margin-bottom: 24px;">Tu dorsal de socio,<br>siempre el mismo.</h2>
-    <p style="font-size: 14px; color: rgba(245,242,237,0.5); line-height: 1.9;">Los socios fundadores aseguran los números del 01 al 100 para siempre. Los socios anuales y mensuales reciben su número a partir del 101. Ese número es tu identidad en cada carrera ESM.</p>
-  </div>
-  <div class="dorsal-visual">
-    <div class="dorsal-num">07</div>
-    <div class="dorsal-badge">
-      <div class="dorsal-badge-logo">ESM</div>
-      <div class="dorsal-badge-number">07</div>
-      <div class="dorsal-badge-label">Fundador</div>
-    </div>
-  </div>
-</div>
+<div class="divider"></div>
 
-<!-- FUNDADOR -->
-<section class="founder-section" id="fundador">
-  <div class="founder-bg"></div>
+<section class="founder-section section-padding fade-in-up" id="fundador">
+  <div class="founder-bg-element"></div>
   <div class="founder-grid">
-    <div class="founder-content fade-up">
-      <div class="section-label">Solo 100 cupos</div>
-      <h2 class="section-title">Ser socio fundador no es un plan.<br><em>Es una decisión.</em></h2>
-      <p>Los primeros 100 socios de la historia del Club ESM. Cuando se agoten estos cupos, el socio fundador deja de existir. Para siempre.</p>
-      <button class="btn-primary" onclick="openModal('Fundador', '₲ 900.000 o ₲ 1.100.000')">
-        Quiero ser fundador
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
+    <div class="founder-content">
+      <div class="section-label">Edición Limitada</div>
+      <h2 class="section-title">Conviértete en <em>Socio Fundador.</em></h2>
+      <p>Una propuesta para quienes quieren dejar marca. Ser miembro fundador te otorga beneficios permanentes, indumentaria de edición especial y un lugar de honor en los registros oficiales del club.</p>
     </div>
 
     <div class="founder-cards">
-      <div class="founder-card fade-up">
-        <div class="founder-card-header">
-          <div class="founder-card-tag">Early Bird · Socios 01 – 30</div>
-          <div class="founder-card-slots">30 cupos</div>
+      <div class="founder-card">
+        <div class="founder-card-info">
+          <h3>Early Founder</h3>
+          <span class="slots">Cupos 1 — 30</span>
+          <ul class="founder-card-features">
+            <li>• Dorsal físico metálico personalizado</li>
+            <li>• Camiseta oficial de competencia ESM premium</li>
+            <li>• Pase de por vida a eventos exclusivos</li>
+          </ul>
         </div>
-        <div class="founder-card-price">₲ 900K</div>
-        <div class="founder-card-sub">Pago único · Incluye membresía anual</div>
-        <ul class="founder-features">
-          <li>Membresía anual incluida</li>
-          <li>Dorsal exclusivo y permanente</li>
-          <li>Acceso prioritario a inscripciones ESM</li>
-          <li>Reconocimiento como fundador en web y resultados</li>
-          <li class="exclusive">Invitación permanente a la mesa de decisiones</li>
-          <li class="exclusive">Reconocimiento en palco y ceremonia Triple Crown</li>
-          <li class="exclusive">Acceso exclusivo a pre-lanzamientos ESM</li>
-        </ul>
-        <button class="plan-cta plan-cta-solid" onclick="openModal('Fundador Early Bird (01–30)', '₲ 900.000 · Pago único')">Asegurar mi lugar</button>
+        <div class="founder-card-pricing">
+          <div class="founder-card-price">900K</div>
+          <div class="founder-card-label">Gs. Pago único</div>
+        </div>
       </div>
 
-      <div class="founder-card fade-up" style="transition-delay: 0.1s">
-        <div class="founder-card-header">
-          <div class="founder-card-tag">Socio Fundador · 31 – 100</div>
-          <div class="founder-card-slots">70 cupos</div>
+      <div class="founder-card">
+        <div class="founder-card-info">
+          <h3>Regular Founder</h3>
+          <span class="slots">Cupos 31 — 100</span>
+          <ul class="founder-card-features">
+            <li>• Dorsal físico histórico</li>
+            <li>• Camiseta oficial de competencia regular</li>
+            <li>• Descuento corporativo vitalicio</li>
+          </ul>
         </div>
-        <div class="founder-card-price">₲ 1.1M</div>
-        <div class="founder-card-sub">Pago único · Incluye membresía anual</div>
-        <ul class="founder-features">
-          <li>Membresía anual incluida</li>
-          <li>Dorsal exclusivo y permanente</li>
-          <li>Acceso prioritario a inscripciones ESM</li>
-          <li>Reconocimiento como fundador en web y resultados</li>
-        </ul>
-        <button class="plan-cta plan-cta-outline" onclick="openModal('Fundador (31–100)', '₲ 1.100.000 · Pago único')">Asegurar mi lugar</button>
+        <div class="founder-card-pricing">
+          <div class="founder-card-price">1.1M</div>
+          <div class="founder-card-label">Gs. Pago único</div>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- BENEFICIOS -->
-<section class="benefits-section" id="beneficios">
-  <div class="section-label">¿Qué incluye?</div>
-  <h2 class="section-title">Todo lo que obtenés<br>siendo socio ESM.</h2>
+<div class="divider"></div>
 
-  <div class="benefits-grid">
-    <div class="benefit-card fade-up">
-      <div class="benefit-icon">◈</div>
-      <div class="benefit-title">Descuentos en marcas</div>
-      <p class="benefit-desc">Precios exclusivos en tiendas deportivas aliadas a En Sus Marcas.</p>
-    </div>
-    <div class="benefit-card fade-up" style="transition-delay: 0.1s">
-      <div class="benefit-icon">⊕</div>
-      <div class="benefit-title">Correr juntos</div>
-      <p class="benefit-desc">Una salida mensual organizada por ESM, exclusiva para socios.</p>
-    </div>
-    <div class="benefit-card fade-up" style="transition-delay: 0.2s">
-      <div class="benefit-icon">◯</div>
-      <div class="benefit-title">Carreras con descuento</div>
-      <p class="benefit-desc">Precio especial en todas las carreras ESM, incluidas las Triple Crown.</p>
-    </div>
-    <div class="benefit-card fade-up" style="transition-delay: 0.1s">
-      <div class="benefit-icon">◇</div>
-      <div class="benefit-title">Acceso prioritario</div>
-      <p class="benefit-desc">Ventana de inscripción anticipada en todos los eventos ESM.</p>
-    </div>
-    <div class="benefit-card fade-up" style="transition-delay: 0.2s">
-      <div class="benefit-icon">△</div>
-      <div class="benefit-title">Capacitaciones</div>
-      <p class="benefit-desc">Encuentros, charlas y contenido exclusivo para socios del club.</p>
-    </div>
-    <div class="benefit-card fade-up" style="transition-delay: 0.3s">
-      <div class="benefit-icon">□</div>
-      <div class="benefit-title">Comunidad activa</div>
-      <p class="benefit-desc">Acceso al grupo exclusivo de socios ESM desde el día uno.</p>
+<section class="identity-section fade-in-up">
+  <div class="identity-text">
+    <div class="section-label">Tu Identidad</div>
+    <h2 class="section-title">Tu número de <em>dorsal único.</em></h2>
+    <p>Cada miembro que se une al club recibe un número de dorsal correlativo e inalterable. Este código representa tu antigüedad y tu identidad dentro de la comunidad de En Sus Marcas en cada competencia.</p>
+  </div>
+  <div class="identity-visual">
+    <div class="identity-bg-num">24</div>
+    <div class="dorsal-badge">
+      <div class="logo">ESM CLUB</div>
+      <div class="number">24</div>
+      <div class="type">Socio Fundador</div>
     </div>
   </div>
 </section>
 
-<!-- PASOS -->
-<section class="steps-section">
-  <div class="section-label">¿Cómo me uno?</div>
-  <h2 class="section-title">Simple.<br>En tres pasos.</h2>
-  <div class="steps-grid">
-    <div class="step fade-up">
-      <div class="step-num">01</div>
-      <div class="step-title">Elegí tu plan</div>
-      <p class="step-desc">Mensual, anual o socio fundador. Si querés ser parte de los primeros 100, asegurate antes de que se agoten los cupos.</p>
-    </div>
-    <div class="step fade-up" style="transition-delay: 0.1s">
-      <div class="step-num">02</div>
-      <div class="step-title">Pagá con Tpago</div>
-      <p class="step-desc">Proceso rápido y seguro con Tpago (Bancard). Confirmación de pago inmediata.</p>
-    </div>
-    <div class="step fade-up" style="transition-delay: 0.2s">
-      <div class="step-num">03</div>
-      <div class="step-title">Bienvenido al club</div>
-      <p class="step-desc">Recibís confirmación por WhatsApp con acceso al grupo exclusivo y tus beneficios activos desde el día uno.</p>
-    </div>
-  </div>
-</section>
-
-<!-- CTA FINAL -->
-<section class="cta-section">
-  <div class="section-label">Quedan pocos cupos</div>
-  <h2 class="section-title">Cuando los 100 se agotan,<br><em>el número de fundador deja de existir.</em></h2>
-  <p>La membresía sigue abierta — el número, no.</p>
-  <div class="cta-actions">
-    <button class="btn-primary" onclick="openModal('Fundador Early Bird (01–30)', '₲ 900.000 · Pago único')">
-      Quiero ser fundador
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:14px;height:14px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </button>
-    <button class="btn-secondary" onclick="openModal('Anual', '₲ 480.000/año')">Solo la membresía</button>
-  </div>
-</section>
-
-<!-- FOOTER -->
 <footer>
-  <div class="footer-logo">Club ESM</div>
-  <span class="footer-text">De Corredores para Corredores · © 2026</span>
-  <a href="https://ensusmarcas.com.py" class="footer-link">ensusmarcas.com.py →</a>
+  <p>© 2026 Club ESM — En Sus Marcas. Todos los derechos reservados.</p>
+  <div class="footer-logo">ESM</div>
 </footer>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modal">
-  <div class="modal">
+  <div class="modal-card">
     <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="modal-tag" id="modal-tag">Membresía</div>
-    <div class="modal-title" id="modal-title">Plan Mensual</div>
-    <div class="modal-price" id="modal-price">₲ 50.000/mes</div>
+    <span class="modal-tag" id="modal-tag">Club ESM · Membresía</span>
+    <h3 id="modal-title">Inscripción</h3>
+    <div class="modal-price-display" id="modal-price">0 Gs</div>
 
     <div class="form-group">
-      <label class="form-label">Cédula de identidad</label>
-      <input type="text" class="form-input" placeholder="1.234.567">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Nombre completo</label>
-      <input type="text" class="form-input" placeholder="Tu nombre completo">
+      <label class="form-label">Nombre Completo</label>
+      <input type="text" class="form-input" placeholder="Ingresa tu nombre completo">
     </div>
     <div class="form-group">
       <label class="form-label">WhatsApp</label>
@@ -1379,7 +1096,8 @@
     });
   }, { threshold: 0.1 });
 
-  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
 </script>
+
 </body>
 </html>
