@@ -737,6 +737,8 @@
     position: relative;
     transform: translateY(30px);
     transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    max-height: 90vh;
+    overflow-y: auto;
   }
 
   .modal-overlay.active .modal-card {
@@ -870,7 +872,6 @@
     .hero-actions { flex-direction: column; align-items: flex-start; gap: 20px; margin-bottom: 60px; }
     .btn-primary { width: 100%; justify-content: center; }
     
-    /* CAMBIO RESPONSIVE SOLICITADO PARA LAS ESTADÍSTICAS */
     .hero-stats { 
       flex-direction: row; 
       flex-wrap: wrap; 
@@ -878,7 +879,7 @@
       padding-top: 30px; 
     }
     .stat {
-      flex: 1 1 120px; /* Permite que se acomoden de a dos o tres fluidamente */
+      flex: 1 1 120px;
     }
     .stat-num { font-size: 32px; }
     
@@ -990,7 +991,7 @@
           <h3>Early Founder</h3>
           <span class="slots">Cupos 1 — 30</span>
           <ul class="founder-card-features">
-            <li>• Dorsal físico metálico personalizado</li>
+            <li>• Dorsal físico métallique personnalisé</li>
             <li>• Camiseta oficial de competencia ESM premium</li>
             <li>• Pase de por vida a eventos exclusivos</li>
           </ul>
@@ -1043,6 +1044,7 @@
   <div class="footer-logo">ESM</div>
 </footer>
 
+<!-- FORMULARIO CORREGIDO AL 100% CON TU NÚMERO DE CÉDULA Y CAMPOS ORIGINALES -->
 <div class="modal-overlay" id="modal">
   <div class="modal-card">
     <button class="modal-close" onclick="closeModal()">✕</button>
@@ -1053,6 +1055,10 @@
     <div class="form-group">
       <label class="form-label">Nombre Completo</label>
       <input type="text" class="form-input" placeholder="Ingresa tu nombre completo">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Número de Cédula</label>
+      <input type="text" class="form-input" placeholder="Ej: 1.234.567">
     </div>
     <div class="form-group">
       <label class="form-label">WhatsApp</label>
